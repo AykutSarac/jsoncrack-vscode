@@ -1,10 +1,30 @@
-import * as React from "react";
-import Main from "./container/Main";
+import React from "react";
+import { Graph } from "./components/Graph";
+import useGraph from "./hooks/store/useGraph";
+import { parser } from "./utils/jsonParser";
+import { ThemeProvider } from "styled-components";
+import { lightTheme } from "./constants/theme";
+import GlobalStyle from "./constants/globalStyle";
 
-class App extends React.Component {
-  public render() {
-    return <Main />;
-  }
-}
+const App: React.FC = () => {
+  const setGraphValue = useGraph((state) => state.setGraphValue);
+
+  React.useEffect(() => {
+    window.addEventListener("message", (event) => {
+      const jsonData = event.data.json;
+      const { nodes, edges } = parser(jsonData);
+
+      setGraphValue("nodes", nodes);
+      setGraphValue("edges", edges);
+    });
+  }, []);
+
+  return (
+    <ThemeProvider theme={lightTheme}>
+      <GlobalStyle />
+      <Graph isWidget openModal={() => {}} setSelectedNode={() => {}} />
+    </ThemeProvider>
+  );
+};
 
 export default App;

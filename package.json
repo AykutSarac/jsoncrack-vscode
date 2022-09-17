@@ -1,6 +1,6 @@
 {
   "name": "jsoncrack-vscode",
-  "displayName": "jsoncrack-vscode",
+  "displayName": "JSON Crack",
   "license": "MIT",
   "description": "Visualize JSON data into graphs",
   "version": "0.0.1",
@@ -8,20 +8,18 @@
     "vscode": "^1.71.0"
   },
   "categories": [
-    "Visualization"
+    "Visualization",
+    "Data Science"
   ],
   "activationEvents": [
-    "onCommand:jsoncrack-vscode.helloWorld",
+    "onCommand:jsoncrack-vscode.start",
     "onLanguage:json"
   ],
-  "resolutions": {
-    "react-dev-utils": "10.0.0"
-  },
   "main": "./build/ext-src/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "jsoncrack-vscode.helloWorld",
+        "command": "jsoncrack-vscode.start",
         "title": "View Graph",
         "category": "menubar",
         "icon": {
@@ -33,7 +31,7 @@
     "menus": {
       "editor/title": [
         {
-          "command": "jsoncrack-vscode.helloWorld",
+          "command": "jsoncrack-vscode.start",
           "when": "editorLangId == json",
           "group": "navigation"
         }
@@ -42,6 +40,7 @@
   },
   "scripts": {
     "vscode:prepublish": "yarn run package",
+    "start": "react-scripts start",
     "compile": "webpack",
     "watch": "webpack --watch",
     "package": "webpack --mode production --devtool hidden-source-map",
@@ -50,7 +49,9 @@
     "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
-    "build": "./scripts/build-non-split.js && tsc -p tsconfig.extension.json"
+    "build": "./scripts/build-non-split.js && tsc -p tsconfig.extension.json",
+    "watch-build": "nodemon --watch src --ext js,tsx,ts --exec \"yarn run build\"",
+    "eject": "react-scripts eject"
   },
   "devDependencies": {
     "@types/glob": "^7.2.0",
@@ -58,6 +59,7 @@
     "@types/node": "16.x",
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",
+    "@types/styled-components": "^5.1.26",
     "@types/vscode": "^1.71.0",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
@@ -65,7 +67,7 @@
     "eslint": "^8.20.0",
     "glob": "^8.0.3",
     "mocha": "^10.0.0",
-    "react-dev-utils": "10.0.0",
+    "nodemon": "^2.0.20",
     "react-scripts": "^5.0.1",
     "rewire": "^6.0.0",
     "ts-loader": "^9.3.1",

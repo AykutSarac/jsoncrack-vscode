@@ -2,11 +2,8 @@ import * as vscode from "vscode";
 import * as path from "path";
 
 export function activate(context: vscode.ExtensionContext) {
-  // commandId
-  const SIDE_PREVIEW_COMMAND = "jsoncrack-vscode.helloWorld";
-
   const disposableSidePreview = vscode.commands.registerCommand(
-    SIDE_PREVIEW_COMMAND,
+    "jsoncrack-vscode.start",
     async () => {
       initJsonCrack(context);
     }
@@ -16,13 +13,34 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 async function initJsonCrack(context: vscode.ExtensionContext) {
+  const panel = vscode.window.createWebviewPanel(
+    "liveHTMLPreviewer",
+    "JSON Crack",
+    2,
+    {
+      enableScripts: true,
+      retainContextWhenHidden: true,
+      localResourceRoots: [
+        vscode.Uri.file(path.join(context.extensionPath, "build")),
+        vscode.Uri.file(path.join(context.extensionPath, "assets")),
+      ],
+    }
+  );
+
+  setInterval(() => {
+    panel.webview.postMessage({
+      json: vscode.window.activeTextEditor?.document.getText(),
+    });
+  }, 2000);
+
   const manifest = require(path.join(
     context.extensionPath,
     "build",
     "asset-manifest.json"
   ));
-  const mainScript = manifest["main.js"];
-  const mainStyle = manifest["main.css"];
+
+  const mainScript = manifest.files["main.js"];
+  const mainStyle = manifest.files["main.css"];
 
   const scriptPathOnDisk = vscode.Uri.file(
     path.join(context.extensionPath, "build", mainScript)
@@ -32,26 +50,6 @@ async function initJsonCrack(context: vscode.ExtensionContext) {
     path.join(context.extensionPath, "build", mainStyle)
   );
   const styleUri = stylePathOnDisk.with({ scheme: "vscode-resource" });
-
-  const panel = vscode.window.createWebviewPanel(
-    // Webview id
-    "liveHTMLPreviewer",
-    // Webview title
-    "JSON Crack",
-    // This will open the second column for preview inside editor
-    2,
-    {
-      // Enable scripts in the webview
-      enableScripts: true,
-      retainContextWhenHidden: true,
-      // And restrict the webview to only loading content from our extension's `assets` directory.
-      localResourceRoots: [
-        vscode.Uri.file(path.join(context.extensionPath, "build")),
-        vscode.Uri.file(path.join(context.extensionPath, "assets")),
-      ],
-    }
-  );
-
   const nonce = getNonce();
 
   panel.webview.html = `<!DOCTYPE html>
@@ -69,11 +67,9 @@ async function initJsonCrack(context: vscode.ExtensionContext) {
       scheme: "vscode-resource",
     })}/">
   </head>
-
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    
     <script nonce="${nonce}" src="${scriptUri}"></script>
   </body>
   </html>`;
