@@ -37,7 +37,7 @@
     "commands": [
       {
         "command": "jsoncrack-vscode.start",
-        "title": "View Graph",
+        "title": "Enable JSON Crack visualization",
         "category": "menubar",
         "icon": {
           "light": "./assets/icon.svg",
