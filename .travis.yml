@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - "14"
+branches:
+  only:
+    - master
+cache:
+  directories:
+    - node_modules
+script:
+  - npm run lint
