@@ -40,8 +40,8 @@
         "title": "View Graph",
         "category": "menubar",
         "icon": {
-          "light": "./assets/icon.png",
-          "dark": "./assets/icon.png"
+          "light": "./assets/icon.svg",
+          "dark": "./assets/icon.svg"
         }
       }
     ],
