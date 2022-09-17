@@ -3,7 +3,7 @@
   "displayName": "JSON Crack",
   "description": "Seamlessly visualize your JSON data instantly into graphs.",
   "license": "MIT",
-  "publisher": "Aykut Saraç",
+  "publisher": "AykutSarac",
   "homepage": "https://jsoncrack.com",
   "icon": "assets/jsoncrack.png",
   "galleryBanner": {
@@ -13,7 +13,7 @@
   "sponsor": {
     "url": "https://github.com/sponsors/AykutSarac"
   },
-  "version": "0.0.1-beta",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.71.0"
   },
