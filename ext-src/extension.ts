@@ -22,6 +22,7 @@ async function initJsonCrack(context: vscode.ExtensionContext) {
     2,
     {
       enableScripts: true,
+      retainContextWhenHidden: true,
       localResourceRoots: [
         vscode.Uri.file(path.join(context.extensionPath, "build")),
         vscode.Uri.file(path.join(context.extensionPath, "assets")),
