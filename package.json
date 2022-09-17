@@ -21,6 +21,14 @@
     "Visualization",
     "Data Science"
   ],
+  "keywords": [
+    "json",
+    "visualizer",
+    "jsoncrack",
+    "data",
+    "yaml",
+    "livepreview"
+  ],
   "activationEvents": [
     "onLanguage:json"
   ],
