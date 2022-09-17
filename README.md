@@ -1,7 +1,7 @@
 
 <p align="center">
   <a href="https://jsoncrack.com">
-    <img width="677" alt="jsoncrack" src="https://user-images.githubusercontent.com/47941171/190874387-a3935c60-d78f-40fd-a69c-15491fbda186.png">
+    <img width="1080" alt="jsoncrack" src="https://user-images.githubusercontent.com/47941171/190874387-a3935c60-d78f-40fd-a69c-15491fbda186.png">
   </a>  
 </p>
 
@@ -17,7 +17,7 @@
         <img alt="license badge" src="https://img.shields.io/github/license/AykutSarac/jsoncrack.com?style=flat-square" />
       </a>
       <a href="https://github.com/AykutSarac/jsoncrack-vscode/releases">
-        <img alt="version badge" src="https://img.shields.io/github/package-json/v/AykutSarac/jsoncrack.com?color=brightgreen&style=flat-square" />
+        <img alt="version badge" src="https://vsmarketplacebadge.apphb.com/version/AykutSarac.jsoncrack-vscode.svg" />
       </a>
       <a href="https://github.com/sponsors/AykutSarac">
         <img alt="github sponsors" src="https://img.shields.io/github/sponsors/AykutSarac?style=flat-square" />
