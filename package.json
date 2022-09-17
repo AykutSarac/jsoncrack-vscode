@@ -30,7 +30,7 @@
     "livepreview"
   ],
   "activationEvents": [
-    "onLanguage:json"
+    "onCommand:jsoncrack-vscode.start"
   ],
   "main": "./build/ext-src/extension.js",
   "contributes": {
@@ -49,7 +49,7 @@
       "editor/title": [
         {
           "command": "jsoncrack-vscode.start",
-          "when": "editorLangId == json",
+          "when": "resourceExtname == .json",
           "group": "navigation"
         }
       ]
