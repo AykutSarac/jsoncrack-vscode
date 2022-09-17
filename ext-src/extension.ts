@@ -13,13 +13,15 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 async function initJsonCrack(context: vscode.ExtensionContext) {
+  let currentTextEditor: vscode.TextEditor | undefined =
+    vscode.window.activeTextEditor;
+
   const panel = vscode.window.createWebviewPanel(
     "liveHTMLPreviewer",
     "JSON Crack",
     2,
     {
       enableScripts: true,
-      retainContextWhenHidden: true,
       localResourceRoots: [
         vscode.Uri.file(path.join(context.extensionPath, "build")),
         vscode.Uri.file(path.join(context.extensionPath, "assets")),
@@ -27,11 +29,32 @@ async function initJsonCrack(context: vscode.ExtensionContext) {
     }
   );
 
-  setInterval(() => {
-    panel.webview.postMessage({
-      json: vscode.window.activeTextEditor?.document.getText(),
-    });
-  }, 2000);
+  panel.webview.postMessage({
+    json: currentTextEditor?.document.getText(),
+  });
+
+  const onActiveEditorChange = vscode.window.onDidChangeActiveTextEditor(
+    (editor) => {
+      currentTextEditor = editor;
+    }
+  );
+
+  const onTextChange = vscode.workspace.onDidChangeTextDocument(
+    (changeEvent) => {
+      panel.webview.postMessage({
+        json: changeEvent.document.getText(),
+      });
+    }
+  );
+
+  panel.onDidDispose(
+    () => {
+      onTextChange.dispose();
+      onActiveEditorChange.dispose();
+    },
+    null,
+    context.subscriptions
+  );
 
   const manifest = require(path.join(
     context.extensionPath,

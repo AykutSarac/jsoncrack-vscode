@@ -3,7 +3,7 @@ import { Graph } from "./components/Graph";
 import useGraph from "./hooks/store/useGraph";
 import { parser } from "./utils/jsonParser";
 import { ThemeProvider } from "styled-components";
-import { lightTheme } from "./constants/theme";
+import { darkTheme, lightTheme } from "./constants/theme";
 import GlobalStyle from "./constants/globalStyle";
 
 const App: React.FC = () => {
@@ -20,7 +20,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <ThemeProvider theme={lightTheme}>
+    <ThemeProvider theme={darkTheme}>
       <GlobalStyle />
       <Graph isWidget openModal={() => {}} setSelectedNode={() => {}} />
     </ThemeProvider>
