@@ -1,9 +1,19 @@
 {
   "name": "jsoncrack-vscode",
   "displayName": "JSON Crack",
+  "description": "Seamlessly visualize your JSON data instantly into graphs.",
   "license": "MIT",
-  "description": "Visualize JSON data into graphs",
-  "version": "0.0.1",
+  "publisher": "Aykut Saraç",
+  "homepage": "https://jsoncrack.com",
+  "icon": "assets/jsoncrack.png",
+  "galleryBanner": {
+    "color": "#202225",
+    "theme": "dark"
+  },
+  "sponsor": {
+    "url": "https://github.com/sponsors/AykutSarac"
+  },
+  "version": "0.0.1-beta",
   "engines": {
     "vscode": "^1.71.0"
   },
@@ -12,7 +22,6 @@
     "Data Science"
   ],
   "activationEvents": [
-    "onCommand:jsoncrack-vscode.start",
     "onLanguage:json"
   ],
   "main": "./build/ext-src/extension.js",
@@ -97,5 +106,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AykutSarac/jsoncrack-vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/AykutSarac/jsoncrack-vscode/issues"
   }
 }
