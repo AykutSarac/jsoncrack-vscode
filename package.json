@@ -13,13 +13,12 @@
   "sponsor": {
     "url": "https://github.com/sponsors/AykutSarac"
   },
-  "version": "1.0.1",
+  "version": "1.0.2",
   "engines": {
     "vscode": "^1.71.0"
   },
   "categories": [
-    "Visualization",
-    "Data Science"
+    "Visualization"
   ],
   "keywords": [
     "json",
