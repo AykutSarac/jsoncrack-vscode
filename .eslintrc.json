@@ -6,12 +6,20 @@
     "sourceType": "module"
   },
   "plugins": ["@typescript-eslint"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
   "rules": {
-    "@typescript-eslint/semi": "warn",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/ban-types": "off",
     "curly": "off",
     "eqeqeq": "warn",
     "no-throw-literal": "warn",
     "semi": "off"
   },
-  "ignorePatterns": ["out", "dist", "**/*.d.ts"]
+  "ignorePatterns": ["build", "public", "scripts", "**/*.d.ts"]
 }
