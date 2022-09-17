@@ -19,7 +19,7 @@
   },
   "version": "1.0.3",
   "engines": {
-    "vscode": "^1.46.0"
+    "vscode": "^1.71.0"
   },
   "categories": [
     "Visualization"
