@@ -4,6 +4,10 @@
   "description": "Seamlessly visualize your JSON data instantly into graphs.",
   "license": "MIT",
   "publisher": "AykutSarac",
+  "author": {
+		"email": "aykutsarac0@gmail.com",
+		"name": "Aykut Saraç"
+	},
   "homepage": "https://jsoncrack.com",
   "icon": "assets/jsoncrack.png",
   "galleryBanner": {
@@ -13,9 +17,9 @@
   "sponsor": {
     "url": "https://github.com/sponsors/AykutSarac"
   },
-  "version": "1.0.2",
+  "version": "1.0.3",
   "engines": {
-    "vscode": "^1.71.0"
+    "vscode": "^1.46.0"
   },
   "categories": [
     "Visualization"
