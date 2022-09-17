@@ -17,7 +17,7 @@
         <img alt="license badge" src="https://img.shields.io/github/license/AykutSarac/jsoncrack.com?style=flat-square" />
       </a>
       <a href="https://github.com/AykutSarac/jsoncrack-vscode/releases">
-        <img alt="version badge" src="https://vsmarketplacebadge.apphb.com/version/AykutSarac.jsoncrack-vscode.svg" />
+        <img alt="version badge" src="https://img.shields.io/visual-studio-marketplace/v/AykutSarac.jsoncrack-vscode?style=flat-square" />
       </a>
       <a href="https://github.com/sponsors/AykutSarac">
         <img alt="github sponsors" src="https://img.shields.io/github/sponsors/AykutSarac?style=flat-square" />
@@ -29,7 +29,7 @@
     <i>Simple json visualization tool for your data.</i>
     </p>
     <p align="center">
-    <a href="https://www.producthunt.com/posts/json-crack?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-json&#0045;crack" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=332281&theme=light" alt="JSON&#0032;Crack - Simple&#0032;visualization&#0032;tool&#0032;for&#0032;your&#0032;JSON&#0032;data&#0046; | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+    <a href="https://www.producthunt.com/posts/json-crack?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-json&#0045;crack" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.png?post_id=332281&theme=light" alt="JSON&#0032;Crack - Simple&#0032;visualization&#0032;tool&#0032;for&#0032;your&#0032;JSON&#0032;data&#0046; | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
     </p>
   </p>
   
