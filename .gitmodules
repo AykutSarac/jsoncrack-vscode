@@ -1,0 +1,6 @@
+[submodule "jc-root"]
+	path = jc-root
+	url = https://github.com/AykutSarac/jsoncrack.com
+[submodule "src/jc-root"]
+	path = src/jc-root
+	url = https://github.com/AykutSarac/jsoncrack.com

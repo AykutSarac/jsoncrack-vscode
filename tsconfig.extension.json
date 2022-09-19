@@ -8,8 +8,6 @@
     "rootDir": ".",
     "strict": true
   },
-  "include": [
-		"ext-src"
-	],
+  "include": ["ext-src"],
   "exclude": ["node_modules", ".vscode-test"]
 }

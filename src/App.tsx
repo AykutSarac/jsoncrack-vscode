@@ -1,12 +1,16 @@
 import React from "react";
-import { Graph } from "./components/Graph";
-import useGraph from "./hooks/store/useGraph";
-import { parser } from "./utils/jsonParser";
 import { ThemeProvider } from "styled-components";
-import { darkTheme } from "./constants/theme";
-import GlobalStyle from "./constants/globalStyle";
+import { Graph } from "./jc-root/src/components/Graph";
+import GlobalStyle from "./jc-root/src/constants/globalStyle";
+import { darkTheme } from "./jc-root/src/constants/theme";
+import useGraph from "./jc-root/src/hooks/store/useGraph";
+import { parser } from "./jc-root/src/utils/jsonParser";
 
 const App: React.FC = () => {
+  const [isModalVisible, setModalVisible] = React.useState(false);
+  const [selectedNode, setSelectedNode] = React.useState<[string, string][]>(
+    []
+  );
   const setGraphValue = useGraph((state) => state.setGraphValue);
 
   React.useEffect(() => {
@@ -22,7 +26,11 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={darkTheme}>
       <GlobalStyle />
-      <Graph isWidget />
+      <Graph
+        openModal={() => setModalVisible(true)}
+        setSelectedNode={setSelectedNode}
+        isWidget={false}
+      />
     </ThemeProvider>
   );
 };
