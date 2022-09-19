@@ -1,6 +1,6 @@
 import React from "react";
 // import { useInViewport } from "react-in-viewport";
-import { CustomNodeProps } from "../../components/CustomNode";
+import { CustomNodeProps } from ".";
 import useConfig from "../../hooks/store/useConfig";
 import * as Styled from "./styles";
 

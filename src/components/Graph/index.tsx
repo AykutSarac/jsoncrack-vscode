@@ -5,7 +5,7 @@ import {
   TransformWrapper,
 } from "react-zoom-pan-pinch";
 import { Canvas, Edge, ElkRoot } from "reaflow";
-import { CustomNode } from "../../components/CustomNode";
+import { CustomNode } from "../CustomNode";
 import useConfig from "../../hooks/store/useConfig";
 import useGraph from "../../hooks/store/useGraph";
 import styled from "styled-components";

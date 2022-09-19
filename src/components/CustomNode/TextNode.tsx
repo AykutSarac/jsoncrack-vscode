@@ -1,7 +1,7 @@
 import React from "react";
 import { MdLink, MdLinkOff } from "react-icons/md";
 // import { useInViewport } from "react-in-viewport";
-import { CustomNodeProps } from "../../components/CustomNode";
+import { CustomNodeProps } from ".";
 import useConfig from "../../hooks/store/useConfig";
 import useGraph from "../../hooks/store/useGraph";
 import useStored from "../../hooks/store/useStored";
