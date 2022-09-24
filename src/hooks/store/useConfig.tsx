@@ -1,5 +1,6 @@
 import { ReactZoomPanPinchRef } from "react-zoom-pan-pinch";
-import { defaultJson } from "../../constants/data";
+import { CanvasDirection } from "reaflow";
+import { defaultJson } from "src/constants/data";
 import create from "zustand";
 
 interface ConfigActions {
@@ -11,24 +12,18 @@ interface ConfigActions {
   centerView: () => void;
 }
 
-export interface Config {
-  json: string;
-  cursorMode: "move" | "navigation";
-  layout: "LEFT" | "RIGHT" | "DOWN" | "UP";
-  expand: boolean;
-  hideEditor: boolean;
-  zoomPanPinch?: ReactZoomPanPinchRef;
-  performanceMode: boolean;
-}
-
-const initialStates: Config = {
+const initialStates = {
   json: defaultJson,
-  cursorMode: "move",
-  layout: "RIGHT",
+  cursorMode: "move" as "move" | "navigation",
+  layout: "RIGHT" as CanvasDirection,
   expand: true,
   hideEditor: false,
   performanceMode: true,
+  disableLoading: false,
+  zoomPanPinch: undefined as ReactZoomPanPinchRef | undefined,
 };
+
+export type Config = typeof initialStates;
 
 const useConfig = create<Config & ConfigActions>()((set, get) => ({
   ...initialStates,
@@ -56,7 +51,8 @@ const useConfig = create<Config & ConfigActions>()((set, get) => ({
   },
   centerView: () => {
     const zoomPanPinch = get().zoomPanPinch;
-    if (zoomPanPinch) zoomPanPinch.centerView(0.6);
+    const canvas = document.querySelector(".jsoncrack-canvas") as HTMLElement;
+    if (zoomPanPinch && canvas) zoomPanPinch.zoomToElement(canvas);
   },
   setConfig: (setting: keyof Config, value: unknown) => set({ [setting]: value }),
 }));

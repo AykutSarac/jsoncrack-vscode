@@ -5,12 +5,14 @@ import {
   TransformWrapper,
 } from "react-zoom-pan-pinch";
 import { Canvas, Edge, ElkRoot } from "reaflow";
-import { CustomNode } from "../CustomNode";
-import useConfig from "../../hooks/store/useConfig";
-import useGraph from "../../hooks/store/useGraph";
+import { CustomNode } from "src/components/CustomNode";
+import useConfig from "src/hooks/store/useConfig";
+import useGraph from "src/hooks/store/useGraph";
 import styled from "styled-components";
+import { Loading } from "../Loading";
+import { ErrorView } from "./ErrorView";
 
-type LayoutP =
+type LayoutProps =
   | {
       isWidget?: never;
       openModal: () => void;
@@ -48,11 +50,14 @@ const GraphComponent = ({
   isWidget = false,
   openModal,
   setSelectedNode,
-}: LayoutP) => {
-  const setConfig = useConfig((state) => state.setConfig);
-  const layout = useConfig((state) => state.layout);
-  const nodes = useGraph((state) => state.nodes);
-  const edges = useGraph((state) => state.edges);
+}: LayoutProps) => {
+  const [minScale, setMinScale] = React.useState(0.3);
+  const setGraphValue = useGraph(state => state.setGraphValue);
+  const setConfig = useConfig(state => state.setConfig);
+  const loading = useGraph(state => state.loading);
+  const layout = useConfig(state => state.layout);
+  const nodes = useGraph(state => state.nodes);
+  const edges = useGraph(state => state.edges);
 
   const [size, setSize] = React.useState({
     width: 2000,
@@ -60,7 +65,7 @@ const GraphComponent = ({
   });
 
   const handleNodeClick = React.useCallback(
-    (e: React.MouseEvent<SVGElement>, data: any) => {
+    (e: React.MouseEvent<SVGElement>, data: NodeData) => {
       if (setSelectedNode) setSelectedNode(data.text);
       if (openModal) openModal();
     },
@@ -74,31 +79,44 @@ const GraphComponent = ({
     [setConfig]
   );
 
-  const onLayoutChange = React.useCallback((layout: ElkRoot) => {
-    if (layout.width && layout.height) {
-      setSize({ width: layout.width + 400, height: layout.height + 400 });
-    }
-  }, []);
+  const onLayoutChange = React.useCallback(
+    (layout: ElkRoot) => {
+      if (layout.width && layout.height) {
+        const areaSize = layout.width * layout.height;
+
+        setMinScale((1_000_000 * 0.5) / areaSize);
+        setSize({ width: layout.width + 400, height: layout.height + 400 });
+
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            setGraphValue("loading", false);
+          }, 0);
+        });
+      }
+    },
+    [setGraphValue]
+  );
 
   const onCanvasClick = React.useCallback(() => {
     const input = document.querySelector("input:focus") as HTMLInputElement;
     if (input) input.blur();
   }, []);
 
+  if (nodes.length > 8_000) return <ErrorView />;
+
   return (
     <StyledEditorWrapper isWidget={isWidget}>
+      {loading && <Loading message="Painting graph..." />}
       <TransformWrapper
         maxScale={2}
-        minScale={0.5}
-        initialScale={0.7}
-        wheel={{ step: 0.05 }}
+        minScale={minScale}
+        initialScale={0.4}
+        wheel={{ step: 0.08 }}
         zoomAnimation={{ animationType: "linear" }}
         doubleClick={{ disabled: true }}
         onInit={onInit}
-        onPanning={(ref) =>
-          ref.instance.wrapperComponent?.classList.add("dragging")
-        }
-        onPanningStop={(ref) =>
+        onPanning={ref => ref.instance.wrapperComponent?.classList.add("dragging")}
+        onPanningStop={ref =>
           ref.instance.wrapperComponent?.classList.remove("dragging")
         }
       >
@@ -107,9 +125,11 @@ const GraphComponent = ({
             width: "100%",
             height: "100%",
             overflow: "hidden",
+            display: loading ? "none" : "block",
           }}
         >
           <Canvas
+            className="jsoncrack-canvas"
             nodes={nodes}
             edges={edges}
             maxWidth={size.width}
@@ -124,10 +144,8 @@ const GraphComponent = ({
             dragEdge={null}
             dragNode={null}
             fit={true}
-            node={(props) => (
-              <CustomNode {...props} onClick={handleNodeClick} />
-            )}
-            edge={(props) => (
+            node={props => <CustomNode {...props} onClick={handleNodeClick} />}
+            edge={props => (
               <Edge {...props} containerClassName={`edge-${props.id}`} />
             )}
           />

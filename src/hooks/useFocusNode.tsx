@@ -3,7 +3,7 @@ import {
   searchQuery,
   cleanupHighlight,
   highlightMatchedNodes,
-} from "../utils/search";
+} from "src/utils/search";
 import useConfig from "./store/useConfig";
 
 export const useFocusNode = () => {
