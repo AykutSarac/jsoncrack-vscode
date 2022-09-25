@@ -14,7 +14,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 async function initJsonCrack(context: vscode.ExtensionContext) {
   let currentTextEditor: vscode.TextEditor | undefined =
-    vscode.window.activeTextEditor;
+    vscode.window.visibleTextEditors[0];
 
   const panel = vscode.window.createWebviewPanel(
     "liveHTMLPreviewer",

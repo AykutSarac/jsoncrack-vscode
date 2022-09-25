@@ -1,14 +1,14 @@
 {
   "name": "jsoncrack-vscode",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "displayName": "JSON Crack",
   "description": "Seamlessly visualize your JSON data instantly into graphs.",
   "license": "MIT",
   "publisher": "AykutSarac",
   "author": {
-		"email": "aykutsarac0@gmail.com",
-		"name": "Aykut Saraç"
-	},
+    "email": "aykutsarac0@gmail.com",
+    "name": "Aykut Saraç"
+  },
   "homepage": "https://jsoncrack.com",
   "icon": "assets/jsoncrack.png",
   "galleryBanner": {
@@ -98,6 +98,7 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.0",
     "react-icons": "^4.4.0",
     "react-linkify-it": "^1.0.7",
     "react-zoom-pan-pinch": "^2.1.3",
