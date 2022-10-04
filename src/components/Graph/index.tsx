@@ -21,7 +21,7 @@ interface LayoutProps {
 const StyledEditorWrapper = styled.div<{ isWidget: boolean }>`
   position: absolute;
   width: 100%;
-  height: ${({ isWidget }) => (isWidget ? "100vh" : "calc(100vh - 36px)")};
+  height: 100vh;
   background: ${({ theme }) => theme.BACKGROUND_SECONDARY};
   background-image: ${({ theme }) =>
     `radial-gradient(#505050 0.5px, ${theme.BACKGROUND_SECONDARY} 0.5px)`};
