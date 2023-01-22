@@ -34,6 +34,9 @@
 - `F5` to start debugging
 - Once you make changes while debugging, you should restart debugging to view changes
 
+## Limitations
+
+Only able to process JSON files of less than 1000 entries.  Improvements are in progress.
 
 ## License
 
