@@ -7,6 +7,7 @@ interface CustomNodeData {
 }
 
 interface NodeData<T = any> {
+  path?: string;
   id: string;
   disabled?: boolean;
   text?: any;
