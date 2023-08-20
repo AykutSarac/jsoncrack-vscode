@@ -1,40 +1,23 @@
-<center>
-  <a href="https://jsoncrack.com">
-    <img width="1080" alt="jsoncrack" src="https://user-images.githubusercontent.com/47941171/187418000-8edea92b-b3ac-4b07-9c4c-e42f6763817d.png">
-  </a>
-</center>
-
-<p>
-    <p align="center">
-      <a href="https://discord.gg/yVyTtCRueq">
-        <img alt="github sponsors" src="https://dcbadge.vercel.app/api/server/yVyTtCRueq?style=flat-square" />
-      </a>
-      <a href="https://app.travis-ci.com/github/AykutSarac/jsoncrack-vscode">
-        <img alt="travis ci badge" src="https://img.shields.io/travis/com/AykutSarac/jsoncrack.com/main?style=flat-square" />
-      </a>
-      <a href="https://github.com/AykutSarac/jsoncrack-vscode/blob/main/LICENSE">
-        <img alt="license badge" src="https://img.shields.io/github/license/AykutSarac/jsoncrack.com?style=flat-square" />
-      </a>
-      <a href="https://github.com/AykutSarac/jsoncrack-vscode/releases">
-        <img alt="version badge" src="https://img.shields.io/visual-studio-marketplace/v/AykutSarac.jsoncrack-vscode?style=flat-square" />
-      </a>
-      <a href="https://github.com/sponsors/AykutSarac">
-        <img alt="github sponsors" src="https://img.shields.io/github/sponsors/AykutSarac?style=flat-square" />
-      </a>
-  </p>
+  <img src="https://github.com/AykutSarac/jsoncrack-vscode/assets/47941171/23b26537-7c4a-4029-af78-456dea0d0b04" width="300" alt="JSON Crack" />
   
-  ## [JSON Crack](https://jsoncrack.com) - VS Code Extension
-  
-  <img width="1388" alt="image" src="https://user-images.githubusercontent.com/47941171/192101363-267cbcaa-a011-413d-95a5-b22ae88aad71.png">
+<hr />
 
+JSON Crack is a powerful and innovative VS Code extension designed to revolutionize the way you interact with JSON data. Seamlessly bridging the gap between data and visualization, this extension empowers developers, data analysts, and enthusiasts to effortlessly transform complex JSON datasets into informative and visually appealing graphs.
+This is an extension brought by [jsoncrack.com](https://jsoncrack.com).
 
-## 🛠 Development
+## How to use?
 
-- Run `yarn watch-build`
-- `F5` to start debugging
-- Once you make changes while debugging, you should restart debugging to view changes
+1. Install the JSON Crack extension from the [VS Code marketplace](https://marketplace.visualstudio.com/items?itemName=AykutSarac.jsoncrack-vscode).
+2. Open a JSON file.
+3. Click on the JSON Crack icon (![icon](https://raw.githubusercontent.com/AykutSarac/jsoncrack-vscode/19dba1a64bae37d155f12d447e136cf490034a72/assets/icon.svg)) in the menubar.
+4. Watch as your JSON data transforms into insightful graphs.
 
+<img width="600" alt="image" src="https://github.com/AykutSarac/jsoncrack-vscode/assets/47941171/06715ac1-2403-402f-b3fa-3d91e1c9196a">
 
-## License
+## Contributing
 
-This project is open source and available under the [MIT License](LICENSE).
+1. Run `yarn install`
+2. Run `yarn build`
+3. Press **F5** to debug
+
+For every change at codebase you should re-do the steps **2 and 3**.
