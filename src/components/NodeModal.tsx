@@ -33,8 +33,11 @@ export const NodeModal: React.FC<ModalProps> = ({ selectedNode, close }) => {
     >
       <div
         style={{
+          maxWidth: "85%",
+          maxHeight: "80%",
           width: "400px",
           height: "fit-content",
+          overflow: "auto",
           background: "var(--vscode-input-background)",
           color: "var(--vscode-input-foreground)",
           padding: "10px",
@@ -43,8 +46,12 @@ export const NodeModal: React.FC<ModalProps> = ({ selectedNode, close }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div>Content</div>
-        <div
+        <textarea
+          value={dataToString(selectedNode.text)}
           style={{
+            boxSizing: "border-box",
+            width: "100%",
+            color: "var(--vscode-input-foreground)",
             marginTop: "4px",
             background: "rgba(0, 0, 0, 0.4)",
             whiteSpace: "pre-wrap",
@@ -52,22 +59,28 @@ export const NodeModal: React.FC<ModalProps> = ({ selectedNode, close }) => {
             padding: "8px",
             borderRadius: "4px",
             marginBottom: "20px",
+            outline: "none",
           }}
-        >
-          {dataToString(selectedNode.text)}
-        </div>
+          rows={14}
+          readOnly
+        />
         <div>Path</div>
-        <div
+        <textarea
+          value={selectedNode.path}
           style={{
+            boxSizing: "border-box",
+            width: "100%",
             marginTop: "4px",
             background: "rgba(0, 0, 0, 0.4)",
             overflowX: "auto",
             padding: "8px",
             borderRadius: "4px",
+            outline: "none",
+            color: "var(--vscode-input-foreground)",
           }}
-        >
-          {selectedNode.path}
-        </div>
+          rows={1}
+          readOnly
+        />
       </div>
     </div>
   );

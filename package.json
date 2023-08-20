@@ -58,7 +58,7 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "yarn run build",
+    "vscode:prepublish": "yarn run package",
     "start": "react-scripts start",
     "compile": "webpack",
     "watch": "webpack --watch",
