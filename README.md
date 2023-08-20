@@ -9,7 +9,7 @@ This is an extension brought by [jsoncrack.com](https://jsoncrack.com).
 
 1. Install the JSON Crack extension from the [VS Code marketplace](https://marketplace.visualstudio.com/items?itemName=AykutSarac.jsoncrack-vscode).
 2. Open a JSON file.
-3. Click on the JSON Crack icon (![icon](https://raw.githubusercontent.com/AykutSarac/jsoncrack-vscode/19dba1a64bae37d155f12d447e136cf490034a72/assets/icon.svg)) in the menubar.
+3. Click on the JSON Crack icon (![icon](https://github.com/AykutSarac/jsoncrack-vscode/assets/47941171/c72ad25a-3b3e-40a5-b551-4a113794795c)) in the menubar.
 4. Watch as your JSON data transforms into insightful graphs.
 
 <img width="600" alt="image" src="https://github.com/AykutSarac/jsoncrack-vscode/assets/47941171/06715ac1-2403-402f-b3fa-3d91e1c9196a">
