@@ -73,7 +73,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "@types/glob": "^7.2.0",
+    "@types/glob": "^8.1.0",
     "@types/mocha": "^9.1.1",
     "@types/node": "16.x",
     "@types/react": "^18.0.20",
@@ -83,7 +83,7 @@
     "@typescript-eslint/parser": "^5.31.0",
     "@vscode/test-electron": "^2.3.4",
     "eslint": "^8.20.0",
-    "glob": "^8.0.3",
+    "glob": "^10.3.3",
     "mocha": "^10.0.0",
     "nodemon": "^2.0.20",
     "react-scripts": "^5.0.1",
@@ -94,9 +94,10 @@
     "webpack-cli": "^4.10.0"
   },
   "dependencies": {
-    "jsoncrack-react": "^0.0.1-beta.1",
+    "jsoncrack-react": "^0.0.1-beta.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "styled-components": "^6.0.7",
     "terser": "^5.19.2"
   },
   "browserslist": {
