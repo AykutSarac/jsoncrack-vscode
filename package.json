@@ -45,9 +45,20 @@
           "light": "./assets/icon.svg",
           "dark": "./assets/icon.svg"
         }
+      },
+      {
+        "command": "jsoncrack-vscode.start.specific",
+        "title": "Enable JSON Crack visualization for specific file",
+        "category": "menubar"
       }
     ],
     "menus": {
+      "commandPalette": [
+        {
+          "command": "jsoncrack-vscode.start",
+          "when": "never"
+        }
+      ],
       "editor/title": [
         {
           "command": "jsoncrack-vscode.start",

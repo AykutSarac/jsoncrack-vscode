@@ -2,13 +2,13 @@ import * as vscode from "vscode";
 import { createWebviewPanel } from "./webview";
 
 export function activate(context: vscode.ExtensionContext) {
-  const cmd = "jsoncrack-vscode.start";
-  const init = () => initJsonCrack(context);
-  const disposable = vscode.commands.registerCommand(cmd, init);
-  context.subscriptions.push(disposable);
+  context.subscriptions.push(
+    vscode.commands.registerCommand("jsoncrack-vscode.start", () => createWebviewForActiveEditor(context)),
+    vscode.commands.registerCommand("jsoncrack-vscode.start.specific", (content?: string) => createWebviewForContent(context, content)),
+  );
 }
 
-async function initJsonCrack(context: vscode.ExtensionContext) {
+async function createWebviewForActiveEditor(context: vscode.ExtensionContext) {
   const panel = createWebviewPanel(context);
   const editor = vscode.window.activeTextEditor;
 
@@ -36,6 +36,20 @@ async function initJsonCrack(context: vscode.ExtensionContext) {
   };
 
   panel.onDidDispose(disposer, null, context.subscriptions);
+}
+
+/**
+ * Renders a readonly diagram from a string
+ * @param context ExtensionContext
+ * @param content JSON content as a string
+ */
+function createWebviewForContent(context?: vscode.ExtensionContext, content?: string): any {
+  if (context && content) {
+    const panel = createWebviewPanel(context);
+    panel.webview.postMessage({
+      json: content,
+    });
+  }
 }
 
 // This method is called when your extension is deactivated
