@@ -50,9 +50,22 @@
         "command": "jsoncrack-vscode.start.specific",
         "title": "Enable JSON Crack visualization for specific file",
         "category": "menubar"
+      },
+      {
+        "command": "jsoncrack-vscode.start.selected",
+        "title": "Crack JSON",
+        "category": "Navigation"
       }
     ],
+
     "menus": {
+      "editor/context": [
+        {
+          "command": "jsoncrack-vscode.start.selected",
+          "when": "editorHasSelection",
+          "group": "navigation"
+        }
+      ],
       "commandPalette": [
         {
           "command": "jsoncrack-vscode.start",
@@ -79,7 +92,7 @@
     "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
     "lint": "eslint . --ext .ts,.tsx",
     "test": "node ./out/test/runTest.js",
-    "build": "./scripts/build-non-split.js && tsc -p tsconfig.extension.json",
+    "build": "node ./scripts/build-non-split.js && tsc -p tsconfig.extension.json",
     "watch-build": "nodemon --watch src --ext js,tsx,ts --exec \"yarn run build\"",
     "eject": "react-scripts eject"
   },
