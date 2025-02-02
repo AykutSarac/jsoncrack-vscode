@@ -4,8 +4,51 @@ import { createWebviewPanel } from "./webview";
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.commands.registerCommand("jsoncrack-vscode.start", () => createWebviewForActiveEditor(context)),
-    vscode.commands.registerCommand("jsoncrack-vscode.start.specific", (content?: string) => createWebviewForContent(context, content)),
+    vscode.commands.registerCommand("jsoncrack-vscode.start.specific", (content?: string) => createWebviewForContent(context, content)), vscode.commands.registerCommand("jsoncrack-vscode.start.selected", () => createWebviewForSelectedText(context)),
+    vscode.commands.registerCommand("jsoncrack-vscode.start.selected", () => createWebviewForSelectedText(context)) // add new activation for selection
   );
+}
+// create webview for selected text
+async function createWebviewForSelectedText(context: vscode.ExtensionContext) {
+  const editor = vscode.window.activeTextEditor;
+
+  if (editor && editor.selection.isEmpty) {
+    vscode.window.showInformationMessage("Please select some text first!");
+    return;
+  }
+
+  const selectedText = editor?.document.getText(editor.selection);
+
+  // Create the webview panel and send the selected JSON content
+  const panel = createWebviewPanel(context);
+  panel.webview.postMessage({
+    json: selectedText,
+  });
+
+  const onReceiveMessage = panel.webview.onDidReceiveMessage((e) => {
+    if (e === "ready") {
+      panel.webview.postMessage({
+        json: selectedText,
+      });
+    }
+  });
+
+  const onTextChange = vscode.workspace.onDidChangeTextDocument(
+      (changeEvent) => {
+        if (changeEvent.document === editor?.document) {
+          panel.webview.postMessage({
+            json: changeEvent.document.getText(editor?.selection),
+          });
+        }
+      }
+  );
+
+  const disposer = () => {
+    onTextChange.dispose();
+    onReceiveMessage.dispose();
+  };
+
+  panel.onDidDispose(disposer, null, context.subscriptions);
 }
 
 async function createWebviewForActiveEditor(context: vscode.ExtensionContext) {
