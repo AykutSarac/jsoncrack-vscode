@@ -5,6 +5,11 @@ const GlobalStyle = createGlobalStyle`
     background: #ffffff;
     overscroll-behavior: none;
     -webkit-font-smoothing: subpixel-antialiased !important;
+    margin: 0;
+    padding: 0;
+    font-family: var(--vscode-editor-font-family) !important;
+    background-color: var(--vscode-input-background) !important;
+    height: 100vh;
   }
 
   *,

@@ -89,6 +89,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@mantine/code-highlight": "^7.16.2",
     "@mantine/core": "^7.16.2",
     "@mantine/hooks": "^7.16.2",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
@@ -97,10 +98,9 @@
     "@types/node": "16.x",
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",
-    "@types/vscode": "^1.63.0",
+    "@types/vscode": "^1.86.0",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
-    "@vscode/test-electron": "^2.3.4",
     "eslint": "^8.20.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
@@ -153,6 +153,6 @@
   "packageManager": "pnpm@9.1.4",
   "engines": {
     "node": ">=18.x",
-    "vscode": "^1.63.0"
+    "vscode": "^1.86.0"
   }
 }

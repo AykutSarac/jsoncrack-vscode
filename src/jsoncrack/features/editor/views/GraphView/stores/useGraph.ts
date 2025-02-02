@@ -44,7 +44,7 @@ interface GraphActions {
   setLoading: (loading: boolean) => void;
   setDirection: (direction: CanvasDirection) => void;
   setViewPort: (ref: ViewPort) => void;
-  setSelectedNode: (nodeData: NodeData) => void;
+  setSelectedNode: (nodeData: NodeData | null) => void;
   focusFirstNode: () => void;
   expandNodes: (nodeId: string) => void;
   expandGraph: () => void;
