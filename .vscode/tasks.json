@@ -6,10 +6,6 @@
     {
       "type": "npm",
       "script": "watch",
-      "problemMatcher": {
-        "owner": "typescript",
-        "pattern": "$tsc"
-      },
       "isBackground": true,
       "presentation": {
         "reveal": "never",
