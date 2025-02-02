@@ -1,10 +1,7 @@
-/* eslint-disable no-undef */
-//@ts-check
-"use strict";
-const path = require("path");
-
-//@ts-check
 /** @typedef {import('webpack').Configuration} WebpackConfig **/
+
+const webpack = require("webpack");
+const path = require("path");
 
 /** @type WebpackConfig */
 const extensionConfig = {
@@ -15,14 +12,34 @@ const extensionConfig = {
     path: path.resolve(__dirname, "build"),
     filename: "extension.js",
     libraryTarget: "commonjs2",
-  },
+	},
   externals: {
     vscode: "commonjs vscode",
   },
+  module: {
+		rules: [{
+			test: /\.ts$/,
+			exclude: [/node_modules/],
+			use: [{
+				loader: 'ts-loader'
+			}]
+		}]
+	},
   resolve: {
     extensions: [".ts", ".js"],
   },
+  plugins: [
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 1, // disable chunks by default since web extensions must be a single bundle
+    }),
+    new webpack.ProvidePlugin({
+      process: "process/browser", // provide a shim for the global `process` variable
+    }),
+  ],
   devtool: "nosources-source-map",
+  performance: {
+		hints: false
+	},
   infrastructureLogging: {
     level: "log",
   },

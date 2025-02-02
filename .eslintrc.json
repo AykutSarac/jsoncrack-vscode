@@ -38,5 +38,5 @@
       }
     ]
   },
-  "ignorePatterns": ["build", "public", "jsoncrack", "scripts", "node_modules"]
+  "ignorePatterns": ["build", "public", "jsoncrack", "scripts", "node_modules", "webpack.config.js"]
 }

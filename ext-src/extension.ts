@@ -6,15 +6,15 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("jsoncrack-vscode.start", () =>
       createWebviewForActiveEditor(context)
     ),
-    vscode.commands.registerCommand(
-      "jsoncrack-vscode.start.specific",
-      (content?: string) => createWebviewForContent(context, content)
+    vscode.commands.registerCommand("jsoncrack-vscode.start.specific", (content?: string) =>
+      createWebviewForContent(context, content)
     ),
     vscode.commands.registerCommand("jsoncrack-vscode.start.selected", () =>
       createWebviewForSelectedText(context)
     )
   );
 }
+
 // create webview for selected text
 async function createWebviewForSelectedText(context: vscode.ExtensionContext) {
   const editor = vscode.window.activeTextEditor;
@@ -32,7 +32,7 @@ async function createWebviewForSelectedText(context: vscode.ExtensionContext) {
     json: selectedText,
   });
 
-  const onReceiveMessage = panel.webview.onDidReceiveMessage((e) => {
+  const onReceiveMessage = panel.webview.onDidReceiveMessage(e => {
     if (e === "ready") {
       panel.webview.postMessage({
         json: selectedText,
@@ -40,15 +40,13 @@ async function createWebviewForSelectedText(context: vscode.ExtensionContext) {
     }
   });
 
-  const onTextChange = vscode.workspace.onDidChangeTextDocument(
-    (changeEvent) => {
-      if (changeEvent.document === editor?.document) {
-        panel.webview.postMessage({
-          json: changeEvent.document.getText(editor?.selection),
-        });
-      }
+  const onTextChange = vscode.workspace.onDidChangeTextDocument(changeEvent => {
+    if (changeEvent.document === editor?.document) {
+      panel.webview.postMessage({
+        json: changeEvent.document.getText(editor?.selection),
+      });
     }
-  );
+  });
 
   const disposer = () => {
     onTextChange.dispose();
@@ -62,7 +60,7 @@ async function createWebviewForActiveEditor(context: vscode.ExtensionContext) {
   const panel = createWebviewPanel(context);
   const editor = vscode.window.activeTextEditor;
 
-  const onReceiveMessage = panel.webview.onDidReceiveMessage((e) => {
+  const onReceiveMessage = panel.webview.onDidReceiveMessage(e => {
     if (e === "ready") {
       panel.webview.postMessage({
         json: editor?.document.getText(),
@@ -70,15 +68,13 @@ async function createWebviewForActiveEditor(context: vscode.ExtensionContext) {
     }
   });
 
-  const onTextChange = vscode.workspace.onDidChangeTextDocument(
-    (changeEvent) => {
-      if (changeEvent.document === editor?.document) {
-        panel.webview.postMessage({
-          json: changeEvent.document.getText(),
-        });
-      }
+  const onTextChange = vscode.workspace.onDidChangeTextDocument(changeEvent => {
+    if (changeEvent.document === editor?.document) {
+      panel.webview.postMessage({
+        json: changeEvent.document.getText(),
+      });
     }
-  );
+  });
 
   const disposer = () => {
     onTextChange.dispose();
@@ -93,10 +89,7 @@ async function createWebviewForActiveEditor(context: vscode.ExtensionContext) {
  * @param context ExtensionContext
  * @param content JSON content as a string
  */
-function createWebviewForContent(
-  context?: vscode.ExtensionContext,
-  content?: string
-): any {
+function createWebviewForContent(context?: vscode.ExtensionContext, content?: string): any {
   if (context && content) {
     const panel = createWebviewPanel(context);
     panel.webview.postMessage({
