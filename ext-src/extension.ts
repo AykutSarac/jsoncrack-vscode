@@ -3,9 +3,16 @@ import { createWebviewPanel } from "./webview";
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
-    vscode.commands.registerCommand("jsoncrack-vscode.start", () => createWebviewForActiveEditor(context)),
-    vscode.commands.registerCommand("jsoncrack-vscode.start.specific", (content?: string) => createWebviewForContent(context, content)), vscode.commands.registerCommand("jsoncrack-vscode.start.selected", () => createWebviewForSelectedText(context)),
-    vscode.commands.registerCommand("jsoncrack-vscode.start.selected", () => createWebviewForSelectedText(context)) // add new activation for selection
+    vscode.commands.registerCommand("jsoncrack-vscode.start", () =>
+      createWebviewForActiveEditor(context)
+    ),
+    vscode.commands.registerCommand(
+      "jsoncrack-vscode.start.specific",
+      (content?: string) => createWebviewForContent(context, content)
+    ),
+    vscode.commands.registerCommand("jsoncrack-vscode.start.selected", () =>
+      createWebviewForSelectedText(context)
+    )
   );
 }
 // create webview for selected text
@@ -34,13 +41,13 @@ async function createWebviewForSelectedText(context: vscode.ExtensionContext) {
   });
 
   const onTextChange = vscode.workspace.onDidChangeTextDocument(
-      (changeEvent) => {
-        if (changeEvent.document === editor?.document) {
-          panel.webview.postMessage({
-            json: changeEvent.document.getText(editor?.selection),
-          });
-        }
+    (changeEvent) => {
+      if (changeEvent.document === editor?.document) {
+        panel.webview.postMessage({
+          json: changeEvent.document.getText(editor?.selection),
+        });
       }
+    }
   );
 
   const disposer = () => {
@@ -86,7 +93,10 @@ async function createWebviewForActiveEditor(context: vscode.ExtensionContext) {
  * @param context ExtensionContext
  * @param content JSON content as a string
  */
-function createWebviewForContent(context?: vscode.ExtensionContext, content?: string): any {
+function createWebviewForContent(
+  context?: vscode.ExtensionContext,
+  content?: string
+): any {
   if (context && content) {
     const panel = createWebviewPanel(context);
     panel.webview.postMessage({

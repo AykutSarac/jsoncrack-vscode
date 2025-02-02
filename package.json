@@ -53,11 +53,10 @@
       },
       {
         "command": "jsoncrack-vscode.start.selected",
-        "title": "Crack JSON",
+        "title": "Open with JSON Crack",
         "category": "Navigation"
       }
     ],
-
     "menus": {
       "editor/context": [
         {
@@ -82,21 +81,25 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "yarn run package",
+    "copy-graphview": "node ./scripts/copy-graphview.js",
+    "vscode:prepublish": "npm run package",
     "start": "react-scripts start",
     "compile": "webpack",
     "watch": "webpack --watch",
     "package": "webpack --mode production --devtool hidden-source-map",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
-    "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "lint": "eslint . --ext .ts,.tsx",
     "test": "node ./out/test/runTest.js",
     "build": "node ./scripts/build-non-split.js && tsc -p tsconfig.extension.json",
-    "watch-build": "nodemon --watch src --ext js,tsx,ts --exec \"yarn run build\"",
+    "watch-build": "nodemon --watch src --ext js,tsx,ts --exec \"npm run build\"",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@mantine/core": "^7.16.2",
+    "@mantine/hooks": "^7.16.2",
     "@types/glob": "^8.1.0",
     "@types/mocha": "^9.1.1",
     "@types/node": "16.x",
@@ -108,10 +111,17 @@
     "@vscode/test-electron": "^2.3.4",
     "eslint": "^8.20.0",
     "glob": "^10.3.3",
+    "js-yaml": "^4.1.0",
+    "json-2-csv": "^5.5.8",
+    "jsonc-parser": "^3.3.1",
+    "jxon": "^2.0.0-beta.5",
     "mocha": "^10.0.0",
     "nodemon": "^2.0.20",
+    "react-hot-toast": "^2.5.1",
+    "react-icons": "^5.4.0",
     "react-scripts": "^5.0.1",
     "rewire": "^7.0.0",
+    "toml": "^3.0.0",
     "ts-loader": "^9.3.1",
     "typescript": "^4.7.4",
     "webpack": "^5.74.0",
@@ -121,6 +131,7 @@
     "jsoncrack-react": "^0.0.1-beta.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "reaflow": "5.2.11",
     "styled-components": "^6.0.7",
     "terser": "^5.19.2"
   },

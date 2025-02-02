@@ -13,6 +13,9 @@ export function createWebviewPanel(context: vscode.ExtensionContext) {
       retainContextWhenHidden: true,
       localResourceRoots: [
         vscode.Uri.file(path.join(extPath, "build")),
+        vscode.Uri.file(path.join(extPath, "build", "static")),
+        vscode.Uri.file(path.join(extPath, "build", "static", "js")),
+        vscode.Uri.file(path.join(extPath, "build", "static", "css")),
         vscode.Uri.file(path.join(extPath, "assets")),
       ],
     }
@@ -42,7 +45,8 @@ export function createWebviewPanel(context: vscode.ExtensionContext) {
       <html lang="en">
       <head>
         <meta charset="utf-8">
-        <meta http-equiv="Content-Security-Policy" content="default-src 'unsafe-inline' 'unsafe-eval' vscode-resource: data: https: http:;">
+        <base href="${panel.webview.asWebviewUri(vscode.Uri.file(path.join(extPath, 'build')))}/">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' ${panel.webview.cspSource} blob:; connect-src ${panel.webview.cspSource} blob:; script-src 'unsafe-eval' 'unsafe-inline' ${panel.webview.cspSource}; style-src ${panel.webview.cspSource} 'unsafe-inline';">
         <link href="${stylesMainUri}" rel="stylesheet">
       </head>
       <body>
@@ -64,3 +68,4 @@ function getNonce() {
   }
   return text;
 }
+

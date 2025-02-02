@@ -10,7 +10,6 @@ const path = require("path");
 const extensionConfig = {
   target: "node",
   mode: "none",
-
   entry: "./ext-src/extension.ts",
   output: {
     path: path.resolve(__dirname, "build"),
@@ -22,19 +21,6 @@ const extensionConfig = {
   },
   resolve: {
     extensions: [".ts", ".js"],
-  },
-  module: {
-    rules: [
-      {
-        test: /\.ts$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: "ts-loader",
-          },
-        ],
-      },
-    ],
   },
   devtool: "nosources-source-map",
   infrastructureLogging: {

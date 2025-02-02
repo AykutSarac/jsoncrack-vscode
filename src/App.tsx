@@ -1,10 +1,10 @@
 import React from "react";
-import { Graph } from "jsoncrack-react";
+import { GraphView } from "./jsoncrack/features/editor/views/GraphView";
 import { NodeModal } from "./components/NodeModal";
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-const vscode = acquireVsCodeApi();
+import { MantineProvider } from "@mantine/core";
+import GlobalStyle from "./jsoncrack/constants/globalStyle";
+import { ThemeProvider } from "styled-components";
+import { darkTheme, lightTheme } from "./jsoncrack/constants/theme";
 
 function getTheme() {
   const theme = document.body.getAttribute("data-vscode-theme-kind");
@@ -15,9 +15,12 @@ function getTheme() {
 const App: React.FC = () => {
   const [json, setJson] = React.useState("");
   const [selectedNode, setSelectedNode] = React.useState<NodeData | null>(null);
+  const theme = getTheme();
 
   React.useEffect(() => {
-    vscode.postMessage("ready");
+    const vscode = window?.acquireVsCodeApi?.();
+
+    vscode?.postMessage("ready");
 
     window.addEventListener("message", (event) => {
       const jsonData = event.data.json;
@@ -26,23 +29,18 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <>
-      <Graph
-        json={json}
-        onNodeClick={setSelectedNode}
-        layout={{ theme: getTheme() }}
-        style={{
-          height: "100vh",
-          width: "100%",
-        }}
-      />
-      {selectedNode && (
-        <NodeModal
-          selectedNode={selectedNode as NodeData}
-          close={() => setSelectedNode(null)}
-        />
-      )}
-    </>
+    <MantineProvider forceColorScheme={theme}>
+      <ThemeProvider theme={theme === "dark" ? darkTheme : lightTheme}>
+        <GraphView json={json} isWidget={false} />
+        <GlobalStyle />
+        {selectedNode && (
+          <NodeModal
+            selectedNode={selectedNode as NodeData}
+            close={() => setSelectedNode(null)}
+          />
+        )}
+      </ThemeProvider>
+    </MantineProvider>
   );
 };
 

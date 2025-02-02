@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
-// Disables code splitting into chunks
-// See https://github.com/facebook/create-react-app/issues/5306#issuecomment-433425838
-
 const rewire = require("rewire");
 const defaults = rewire("react-scripts/scripts/build.js");
 let config = defaults.__get__("config");
 
+// Disable source maps
+config.devtool = false;
+
+// Disable code splitting
 config.optimization.splitChunks = {
   cacheGroups: {
     default: false
@@ -14,3 +15,17 @@ config.optimization.splitChunks = {
 };
 
 config.optimization.runtimeChunk = false;
+
+// Enable tree shaking
+config.optimization.usedExports = true;
+
+// Ensure production optimizations are enabled
+config.mode = 'production';
+config.optimization.minimize = true;
+
+// Ensure output is a single file
+config.output = {
+  ...config.output,
+  filename: 'static/js/[name].js',
+  chunkFilename: 'static/js/[name].js'
+};
