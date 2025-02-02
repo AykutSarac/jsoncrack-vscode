@@ -1,4 +1,5 @@
 import React from "react";
+import type { NodeData } from "../jsoncrack/types/graph";
 
 interface ModalProps {
   selectedNode: NodeData;
@@ -43,7 +44,7 @@ export const NodeModal: React.FC<ModalProps> = ({ selectedNode, close }) => {
           padding: "10px",
           borderRadius: "4px",
         }}
-        onClick={(e) => e.stopPropagation()}
+        onClick={e => e.stopPropagation()}
       >
         <div>Content</div>
         <textarea

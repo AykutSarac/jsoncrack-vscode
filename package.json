@@ -14,9 +14,6 @@
     "color": "#202225",
     "theme": "dark"
   },
-  "engines": {
-    "vscode": "^1.63.0"
-  },
   "categories": [
     "Visualization"
   ],
@@ -84,8 +81,8 @@
     "compile": "webpack",
     "watch": "webpack --watch",
     "package": "webpack --mode production --devtool hidden-source-map",
-    "lint": "eslint . --ext .ts,.tsx",
-    "test": "node ./out/test/runTest.js",
+    "lint": "tsc --project tsconfig.json && eslint src && prettier --check src",
+    "lint:fix": "eslint --fix src & prettier --write src",
     "build": "node ./scripts/build-non-split.js && tsc -p tsconfig.extension.json",
     "watch-build": "nodemon --watch src --ext js,tsx,ts --exec \"npm run build\"",
     "eject": "react-scripts eject"
@@ -94,6 +91,7 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@mantine/core": "^7.16.2",
     "@mantine/hooks": "^7.16.2",
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/glob": "^8.1.0",
     "@types/mocha": "^9.1.1",
     "@types/node": "16.x",
@@ -104,6 +102,8 @@
     "@typescript-eslint/parser": "^5.31.0",
     "@vscode/test-electron": "^2.3.4",
     "eslint": "^8.20.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
     "glob": "^10.3.3",
     "js-yaml": "^4.1.0",
     "json-2-csv": "^5.5.8",
@@ -111,6 +111,7 @@
     "jxon": "^2.0.0-beta.5",
     "mocha": "^10.0.0",
     "nodemon": "^2.0.20",
+    "prettier": "^3.3.3",
     "react-hot-toast": "^2.5.1",
     "react-icons": "^5.4.0",
     "react-scripts": "^5.0.1",
@@ -122,6 +123,7 @@
     "webpack-cli": "^4.10.0"
   },
   "dependencies": {
+    "eslint-plugin-unused-imports": "^4.1.4",
     "jsoncrack-react": "^0.0.1-beta.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -147,5 +149,10 @@
   },
   "bugs": {
     "url": "https://github.com/AykutSarac/jsoncrack-vscode/issues"
+  },
+  "packageManager": "pnpm@9.1.4",
+  "engines": {
+    "node": ">=18.x",
+    "vscode": "^1.63.0"
   }
 }
