@@ -76,10 +76,10 @@
   },
   "scripts": {
     "copy-graphview": "node ./scripts/copy-graphview.js",
-    "vscode:prepublish": "npm run package",
+    "vscode:prepublish": "npm run build",
     "start": "react-scripts start",
-    "compile": "webpack",
-    "watch": "webpack --watch",
+    "compile": "webpack --mode development",
+    "watch": "webpack --mode development --watch",
     "package": "webpack --mode production --devtool hidden-source-map",
     "lint": "eslint src && prettier --check src",
     "lint:fix": "eslint --fix src & prettier --write src",
@@ -115,13 +115,18 @@
     "prettier": "^3.3.3",
     "react-hot-toast": "^2.5.1",
     "react-icons": "^5.4.0",
+    "react-linkify-it": "^1.0.8",
     "react-scripts": "^5.0.1",
+    "react-zoomable-ui": "^0.11.0",
     "rewire": "^7.0.0",
     "toml": "^3.0.0",
     "ts-loader": "^9.5.1",
     "typescript": "^5.6.3",
+    "use-long-press": "^3.2.0",
+    "vsce": "^2.15.0",
     "webpack": "^5.95.0",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "zustand": "^5.0.3"
   },
   "dependencies": {
     "eslint-plugin-unused-imports": "^4.1.4",
@@ -150,7 +155,6 @@
   "bugs": {
     "url": "https://github.com/AykutSarac/jsoncrack-vscode/issues"
   },
-  "packageManager": "pnpm@9.1.4",
   "engines": {
     "node": ">=18.x",
     "vscode": "^1.86.0"

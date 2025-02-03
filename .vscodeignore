@@ -1,6 +1,7 @@
 .vscode/**
 .vscode-test/**
 node_modules/**
+jsoncrack/**
 src/**
 .gitignore
 .pnpm-lock.yaml
