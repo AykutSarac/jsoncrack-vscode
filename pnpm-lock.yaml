@@ -11,9 +11,6 @@ importers:
       eslint-plugin-unused-imports:
         specifier: ^4.1.4
         version: 4.1.4(@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.7.3))(eslint@8.57.1)(typescript@5.7.3))(eslint@8.57.1)
-      jsoncrack-react:
-        specifier: ^0.0.1-beta.3
-        version: 0.0.1-beta.4(@emotion/is-prop-valid@1.2.2)(@types/react@18.3.18)(immer@9.0.21)(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -3251,10 +3248,6 @@ packages:
     resolution: {integrity: sha512-ax7ZYomf6jqPTQ4+XCpUGyXKHk5WweS+e05MBO4/y3WJ5RkmPXNKvX+bx1behVILVwr6JSQvZAku021CHPXG3Q==}
     engines: {node: '>=10'}
 
-  hammerjs@2.0.8:
-    resolution: {integrity: sha512-tSQXBXS/MWQOn/RKckawJ61vvsDpCom87JgxiYdGwHdOa0ht0vzUWDlfioofFCRU0L+6NGDt6XzbgoJvZkMeRQ==}
-    engines: {node: '>=0.8.0'}
-
   handle-thing@2.0.1:
     resolution: {integrity: sha512-9Qn4yBxelxoh2Ow62nP+Ka/kMnOXRi8BXnRaUwezLNhqelnN49xKz4F/dPP8OYLxLxq6JDtZb2i9XznUQbNPTg==}
 
@@ -3921,13 +3914,6 @@ packages:
 
   jsonc-parser@3.3.1:
     resolution: {integrity: sha512-HUgH65KyejrUFPvHFPbqOY0rsFip3Bo5wb4ngvdi1EpCYWUQDC5V+Y7mZws+DLkr4M//zQJoanu1SP+87Dv1oQ==}
-
-  jsoncrack-react@0.0.1-beta.4:
-    resolution: {integrity: sha512-ZBEcsOcHvEYTo4uEiZKKIba3hEtCqsclc4zjii2WHoxCc4MlBNjPRrLSwa5it65mBXp4DOj1Ghf61UxposGVDQ==}
-    peerDependencies:
-      react: ^18.2.0
-      react-dom: ^18.2.0
-      styled-components: ^6.0.7
 
   jsonfile@6.1.0:
     resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
@@ -5064,11 +5050,6 @@ packages:
   react-is@18.3.1:
     resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
 
-  react-linkify-it@1.0.8:
-    resolution: {integrity: sha512-QjwhIaCXmJ2CiFIl4mIOYN+Z+OhwRLHNMKmWG9SSAzKgpltOnOQjzvj8ruhnvOhgKRc6yqjW0vH0J6LEbTm50Q==}
-    peerDependencies:
-      react: '*'
-
   react-number-format@5.4.3:
     resolution: {integrity: sha512-VCY5hFg/soBighAoGcdE+GagkJq0230qN6jcS5sp8wQX1qy1fYN/RX7/BXkrs0oyzzwqR8/+eSUrqXbGeywdUQ==}
     peerDependencies:
@@ -5138,11 +5119,6 @@ packages:
     deprecated: This package is no longer maintained. Please use @use-gesture/react instead
     peerDependencies:
       react: '>= 16.8.0'
-
-  react-zoomable-ui@0.11.0:
-    resolution: {integrity: sha512-2msg8DyZUToHNTek3WfvlvZ6mumWyocp7xPzUvMaYpQAwjXvenRYR9nlmmITLymJdZReNqR2nDW8I5yUC8mXiQ==}
-    peerDependencies:
-      react: '*'
 
   react@18.3.1:
     resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
@@ -5825,10 +5801,6 @@ packages:
   ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
 
-  ts-invariant@0.10.3:
-    resolution: {integrity: sha512-uivwYcQaxAucv1CzRp2n/QdYPo4ILf9VXgH19zEIjFx2EJufV16P0JtJVpYHy89DItG6Kwj2oIUjrcK5au+4tQ==}
-    engines: {node: '>=8'}
-
   ts-loader@9.5.2:
     resolution: {integrity: sha512-Qo4piXvOTWcMGIgRiuFa6nHNm+54HbYaZCKqc9eeZCLRy3XqafQgwX2F7mofrbJG3g7EEb+lkiR+z2Lic2s3Zw==}
     engines: {node: '>=12.0.0'}
@@ -6011,11 +5983,6 @@ packages:
       '@types/react':
         optional: true
 
-  use-long-press@3.2.0:
-    resolution: {integrity: sha512-uq5o2qFR1VRjHn8Of7Fl344/AGvgk7C5Mcb4aSb1ZRVp6PkgdXJJLdRrlSTJQVkkQcDuqFbFc3mDX4COg7mRTA==}
-    peerDependencies:
-      react: '>=16.8.0'
-
   use-sidecar@1.1.3:
     resolution: {integrity: sha512-Fedw0aZvkhynoPYlA5WXrMCAMm+nSWdZt6lzJQ7Ok8S6Q+VsHmHpRWndVRJ8Be0ZbkfPc5LRYH+5XrzXcEeLRQ==}
     engines: {node: '>=10'}
@@ -6025,11 +5992,6 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
-
-  use-sync-external-store@1.4.0:
-    resolution: {integrity: sha512-9WXSPC5fMv61vaupRkCKCxsPxBocVnwakBEkMIHHpkTTg6icbJtg6jzgtLDm4bl3cSHAca52rYWih0k4K3PfHw==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
@@ -6348,21 +6310,6 @@ packages:
   yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
-
-  zustand@4.5.6:
-    resolution: {integrity: sha512-ibr/n1hBzLLj5Y+yUcU7dYw8p6WnIVzdJbnX+1YpaScvZVF2ziugqHs+LAmHw4lWO9c/zRj+K1ncgWDQuthEdQ==}
-    engines: {node: '>=12.7.0'}
-    peerDependencies:
-      '@types/react': '>=16.8'
-      immer: '>=9.0.6'
-      react: '>=16.8'
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      immer:
-        optional: true
-      react:
-        optional: true
 
 snapshots:
 
@@ -10090,8 +10037,6 @@ snapshots:
     dependencies:
       duplexer: 0.1.2
 
-  hammerjs@2.0.8: {}
-
   handle-thing@2.0.1: {}
 
   harmony-reflect@1.6.2: {}
@@ -11000,23 +10945,6 @@ snapshots:
   json5@2.2.3: {}
 
   jsonc-parser@3.3.1: {}
-
-  jsoncrack-react@0.0.1-beta.4(@emotion/is-prop-valid@1.2.2)(@types/react@18.3.18)(immer@9.0.21)(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)):
-    dependencies:
-      jsonc-parser: 3.3.1
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      react-linkify-it: 1.0.8(react@18.3.1)
-      react-zoomable-ui: 0.11.0(react@18.3.1)
-      reaflow: 5.2.11(@emotion/is-prop-valid@1.2.2)(@types/react@18.3.18)(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      styled-components: 6.1.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      use-long-press: 3.2.0(react@18.3.1)
-      zustand: 4.5.6(@types/react@18.3.18)(immer@9.0.21)(react@18.3.1)
-    transitivePeerDependencies:
-      - '@emotion/is-prop-valid'
-      - '@types/react'
-      - immer
-      - prop-types
 
   jsonfile@6.1.0:
     dependencies:
@@ -12181,10 +12109,6 @@ snapshots:
 
   react-is@18.3.1: {}
 
-  react-linkify-it@1.0.8(react@18.3.1):
-    dependencies:
-      react: 18.3.1
-
   react-number-format@5.4.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       react: 18.3.1
@@ -12327,12 +12251,6 @@ snapshots:
   react-use-gesture@8.0.1(react@18.3.1):
     dependencies:
       react: 18.3.1
-
-  react-zoomable-ui@0.11.0(react@18.3.1):
-    dependencies:
-      hammerjs: 2.0.8
-      react: 18.3.1
-      ts-invariant: 0.10.3
 
   react@18.3.1:
     dependencies:
@@ -13146,10 +13064,6 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
-  ts-invariant@0.10.3:
-    dependencies:
-      tslib: 2.8.1
-
   ts-loader@9.5.2(typescript@5.7.3)(webpack@5.97.1(webpack-cli@5.1.4)):
     dependencies:
       chalk: 4.1.2
@@ -13322,10 +13236,6 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.18
 
-  use-long-press@3.2.0(react@18.3.1):
-    dependencies:
-      react: 18.3.1
-
   use-sidecar@1.1.3(@types/react@18.3.18)(react@18.3.1):
     dependencies:
       detect-node-es: 1.1.0
@@ -13333,10 +13243,6 @@ snapshots:
       tslib: 2.8.1
     optionalDependencies:
       '@types/react': 18.3.18
-
-  use-sync-external-store@1.4.0(react@18.3.1):
-    dependencies:
-      react: 18.3.1
 
   util-deprecate@1.0.2: {}
 
@@ -13779,11 +13685,3 @@ snapshots:
       yargs-parser: 20.2.9
 
   yocto-queue@0.1.0: {}
-
-  zustand@4.5.6(@types/react@18.3.18)(immer@9.0.21)(react@18.3.1):
-    dependencies:
-      use-sync-external-store: 1.4.0(react@18.3.1)
-    optionalDependencies:
-      '@types/react': 18.3.18
-      immer: 9.0.21
-      react: 18.3.1

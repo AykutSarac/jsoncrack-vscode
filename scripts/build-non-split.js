@@ -22,10 +22,3 @@ config.optimization.usedExports = true;
 // Ensure production optimizations are enabled
 config.mode = 'production';
 config.optimization.minimize = true;
-
-// Ensure output is a single file
-config.output = {
-  ...config.output,
-  filename: 'static/js/[name].js',
-  chunkFilename: 'static/js/[name].js'
-};
