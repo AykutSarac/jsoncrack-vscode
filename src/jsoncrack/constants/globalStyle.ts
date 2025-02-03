@@ -2,13 +2,10 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   html, body {
-    background: #ffffff;
     overscroll-behavior: none;
     -webkit-font-smoothing: subpixel-antialiased !important;
     margin: 0;
     padding: 0;
-    font-family: var(--vscode-editor-font-family) !important;
-    background-color: var(--vscode-input-background) !important;
     height: 100vh;
   }
 
@@ -21,6 +18,10 @@ const GlobalStyle = createGlobalStyle`
       scroll-behavior: smooth !important;
       -webkit-tap-highlight-color: transparent;
       -webkit-font-smoothing: never;
+  }
+
+  code {
+    background-color: unset;
   }
 
   .hide {

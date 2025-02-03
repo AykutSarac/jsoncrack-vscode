@@ -42,16 +42,17 @@ const App: React.FC = () => {
         {selectedNode && (
           <NodeModal opened={nodeModalOpened} onClose={() => setSelectedNode(null)} />
         )}
-
         <Anchor
           pos="fixed"
           bottom={0}
           left={0}
-          href="https://todiagram.com?utm_source=vscode&utm_campaign=attribute"
+          href="https://jsoncrack.com/editor?utm_source=vscode&utm_campaign=attribute"
           target="_blank"
         >
           <Box px="12" py="4" bg="dark">
-            <Text c="white">❤ ToDiagram</Text>
+            <Text fz="sm" c="white">
+              Powered by JSON Crack
+            </Text>
           </Box>
         </Anchor>
       </ThemeProvider>

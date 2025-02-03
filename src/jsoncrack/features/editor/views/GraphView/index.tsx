@@ -13,6 +13,7 @@ import { CustomNode } from "./CustomNode";
 import useGraph from "./stores/useGraph";
 import useFile from "../../../../store/useFile";
 import { FileFormat } from "../../../../enums/file.enum";
+import { NotSupported } from "./NotSupported";
 
 const StyledEditorWrapper = styled.div<{
   $widget: boolean;
@@ -151,12 +152,12 @@ const GraphCanvas = ({ isWidget }: GraphProps) => {
   );
 };
 
-const SUPPORTED_LIMIT = +(process.env.NEXT_PUBLIC_NODE_LIMIT as string);
+const SUPPORTED_LIMIT = +(process.env.NEXT_PUBLIC_NODE_LIMIT as string) || 1000;
 
 export const GraphView = ({ isWidget = false, json }: GraphProps) => {
   const setViewPort = useGraph((state) => state.setViewPort);
   const viewPort = useGraph((state) => state.viewPort);
-  const centerView = useGraph((state) => state.centerView);
+  const aboveSupportedLimit = useGraph(state => state.nodes.length > SUPPORTED_LIMIT);
   const loading = useGraph((state) => state.loading);
   const gesturesEnabled = useConfig((state) => state.gesturesEnabled);
   const rulersEnabled = useConfig((state) => state.rulersEnabled);
@@ -193,6 +194,10 @@ export const GraphView = ({ isWidget = false, json }: GraphProps) => {
       setContents({ contents: json, format: FileFormat.JSON });
     }
   }, [json, setContents]);
+
+  if (aboveSupportedLimit) {
+    return <NotSupported />;
+  }
 
   return (
     <>
