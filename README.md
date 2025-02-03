@@ -16,8 +16,8 @@ This is an extension brought by [jsoncrack.com](https://jsoncrack.com).
 
 ## Contributing
 
-1. Run `yarn install`
-2. Run `yarn build`
+1. Run `pnpm install`
+2. Run `pnpm build`
 3. Press **F5** to debug
 
 For every change at codebase you should re-do the steps **2 and 3**.

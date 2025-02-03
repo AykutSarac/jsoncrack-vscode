@@ -1,9 +1,10 @@
 .vscode/**
 .vscode-test/**
 node_modules/**
+jsoncrack/**
 src/**
 .gitignore
-.yarnrc
+.pnpm-lock.yaml
 webpack.config.js
 vsc-extension-quickstart.md
 **/tsconfig.json

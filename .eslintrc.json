@@ -5,21 +5,38 @@
     "ecmaVersion": 6,
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint",
+  "unused-imports",
+  "prettier"
+],
   "extends": [
     "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
+    "prettier",
     "plugin:@typescript-eslint/recommended"
   ],
+  
   "rules": {
-    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/consistent-type-imports": "error",
+    "unused-imports/no-unused-imports": "error",
     "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-var-requires": "off",
-    "@typescript-eslint/ban-types": "off",
-    "curly": "off",
-    "eqeqeq": "warn",
-    "no-throw-literal": "warn",
-    "semi": "off"
+    "prettier/prettier": "error",
+    "space-in-parens": "error",
+    "no-empty": "error",
+    "no-multiple-empty-lines": "error",
+    "no-irregular-whitespace": "error",
+    "strict": ["error", "never"],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "double", { "avoidEscape": true }],
+    "semi": ["error", "always"],
+    "prefer-const": "error",
+    "space-before-function-paren": [
+      "error",
+      {
+        "anonymous": "always",
+        "named": "never",
+        "asyncArrow": "always"
+      }
+    ]
   },
-  "ignorePatterns": ["build", "public", "scripts", "**/*.d.ts"]
+  "ignorePatterns": ["build", "public", "jsoncrack", "scripts", "node_modules", "webpack.config.js"]
 }

@@ -1,10 +1,11 @@
-import React from "react";
-import { Graph } from "jsoncrack-react";
+import { useEffect, useState } from "react";
+import { Anchor, Box, MantineProvider, Text } from "@mantine/core";
+import { ThemeProvider } from "styled-components";
 import { NodeModal } from "./components/NodeModal";
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-const vscode = acquireVsCodeApi();
+import GlobalStyle from "./jsoncrack/constants/globalStyle";
+import { darkTheme, lightTheme } from "./jsoncrack/constants/theme";
+import { GraphView } from "./jsoncrack/features/editor/views/GraphView";
+import useGraph from "./jsoncrack/features/editor/views/GraphView/stores/useGraph";
 
 function getTheme() {
   const theme = document.body.getAttribute("data-vscode-theme-kind");
@@ -13,37 +14,56 @@ function getTheme() {
 }
 
 const App: React.FC = () => {
-  const [json, setJson] = React.useState("");
-  const [selectedNode, setSelectedNode] = React.useState<NodeData | null>(null);
+  const [json, setJson] = useState(JSON.stringify(""));
+  const selectedNode = useGraph(state => state.selectedNode);
+  const setSelectedNode = useGraph(state => state.setSelectedNode);
+  const [nodeModalOpened, setNodeModalOpened] = useState(false);
+  const theme = getTheme();
 
-  React.useEffect(() => {
-    vscode.postMessage("ready");
+  useEffect(() => {
+    const vscode = window?.acquireVsCodeApi?.();
+    vscode?.postMessage("ready");
 
-    window.addEventListener("message", (event) => {
+    window.addEventListener("message", event => {
       const jsonData = event.data.json;
       setJson(jsonData);
     });
   }, []);
 
+  useEffect(() => {
+    if (selectedNode) setNodeModalOpened(true);
+  }, [selectedNode]);
+
   return (
-    <>
-      <Graph
-        json={json}
-        onNodeClick={setSelectedNode}
-        layout={{ theme: getTheme() }}
-        style={{
-          height: "100vh",
-          width: "100%",
-        }}
-      />
-      {selectedNode && (
-        <NodeModal
-          selectedNode={selectedNode as NodeData}
-          close={() => setSelectedNode(null)}
-        />
-      )}
-    </>
+    <MantineProvider forceColorScheme={theme}>
+      <ThemeProvider theme={theme === "dark" ? darkTheme : lightTheme}>
+        <GraphView json={json} isWidget={false} />
+        <GlobalStyle />
+        {selectedNode && (
+          <NodeModal opened={nodeModalOpened} onClose={() => setSelectedNode(null)} />
+        )}
+        <Anchor
+          pos="fixed"
+          bottom={0}
+          left={0}
+          href="https://jsoncrack.com/editor?utm_source=vscode&utm_campaign=attribute"
+          target="_blank"
+        >
+          <Box px="12" py="4" bg="dark">
+            <Text fz="sm" c="white">
+              Powered by JSON Crack
+            </Text>
+          </Box>
+        </Anchor>
+      </ThemeProvider>
+    </MantineProvider>
   );
 };
 
 export default App;
+
+declare global {
+  interface Window {
+    acquireVsCodeApi?: () => any;
+  }
+}

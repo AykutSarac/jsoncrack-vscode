@@ -1,5 +1,6 @@
-import * as vscode from "vscode";
+import * as fs from "fs";
 import * as path from "path";
+import * as vscode from "vscode";
 
 export function createWebviewPanel(context: vscode.ExtensionContext) {
   const extPath = context.extensionPath;
@@ -13,25 +14,24 @@ export function createWebviewPanel(context: vscode.ExtensionContext) {
       retainContextWhenHidden: true,
       localResourceRoots: [
         vscode.Uri.file(path.join(extPath, "build")),
+        vscode.Uri.file(path.join(extPath, "build", "static")),
+        vscode.Uri.file(path.join(extPath, "build", "static", "js")),
+        vscode.Uri.file(path.join(extPath, "build", "static", "css")),
         vscode.Uri.file(path.join(extPath, "assets")),
       ],
     }
   );
+  panel.iconPath = vscode.Uri.file(path.join(extPath, "build", "assets", "favicon.ico"));
 
-  panel.iconPath = vscode.Uri.file(
-    path.join(extPath, "build", "assets", "favicon.ico")
+  const manifest = JSON.parse(
+    fs.readFileSync(path.join(extPath, "build", "asset-manifest.json"), "utf-8")
   );
 
-  const manifest = require(path.join(extPath, "build", "asset-manifest.json"));
   const mainScript = manifest.files["main.js"];
   const mainStyle = manifest.files["main.css"];
 
-  const scriptPathOnDisk = vscode.Uri.file(
-    path.join(extPath, "build", mainScript)
-  );
-  const stylePathOnDisk = vscode.Uri.file(
-    path.join(extPath, "build", mainStyle)
-  );
+  const scriptPathOnDisk = vscode.Uri.file(path.join(extPath, "build", mainScript));
+  const stylePathOnDisk = vscode.Uri.file(path.join(extPath, "build", mainStyle));
 
   const stylesMainUri = panel.webview.asWebviewUri(stylePathOnDisk);
   const scriptUri = panel.webview.asWebviewUri(scriptPathOnDisk);
@@ -42,7 +42,8 @@ export function createWebviewPanel(context: vscode.ExtensionContext) {
       <html lang="en">
       <head>
         <meta charset="utf-8">
-        <meta http-equiv="Content-Security-Policy" content="default-src 'unsafe-inline' 'unsafe-eval' vscode-resource: data: https: http:;">
+        <base href="${panel.webview.asWebviewUri(vscode.Uri.file(path.join(extPath, "build")))}/">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' ${panel.webview.cspSource} blob:; connect-src ${panel.webview.cspSource} blob:; script-src 'unsafe-eval' 'unsafe-inline' ${panel.webview.cspSource}; style-src ${panel.webview.cspSource} 'unsafe-inline';">
         <link href="${stylesMainUri}" rel="stylesheet">
       </head>
       <body>
@@ -57,8 +58,7 @@ export function createWebviewPanel(context: vscode.ExtensionContext) {
 
 function getNonce() {
   let text = "";
-  const possible =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   for (let i = 0; i < 32; i++) {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   }

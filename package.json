@@ -1,6 +1,6 @@
 {
   "name": "jsoncrack-vscode",
-  "version": "2.0.3",
+  "version": "3.0.0",
   "displayName": "JSON Crack",
   "description": "Seamlessly visualize your JSON data instantly into graphs.",
   "publisher": "AykutSarac",
@@ -13,12 +13,6 @@
   "galleryBanner": {
     "color": "#202225",
     "theme": "dark"
-  },
-  "sponsor": {
-    "url": "https://github.com/sponsors/AykutSarac"
-  },
-  "engines": {
-    "vscode": "^1.63.0"
   },
   "categories": [
     "Visualization"
@@ -42,8 +36,8 @@
         "title": "Enable JSON Crack visualization",
         "category": "menubar",
         "icon": {
-          "light": "./assets/icon.svg",
-          "dark": "./assets/icon.svg"
+          "light": "./assets/icon-light.svg",
+          "dark": "./assets/icon-dark.svg"
         }
       },
       {
@@ -53,11 +47,10 @@
       },
       {
         "command": "jsoncrack-vscode.start.selected",
-        "title": "Crack JSON",
+        "title": "Open with JSON Crack",
         "category": "Navigation"
       }
     ],
-
     "menus": {
       "editor/context": [
         {
@@ -82,45 +75,64 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "yarn run package",
+    "copy-graphview": "node ./scripts/copy-graphview.js",
+    "vscode:prepublish": "npm run build",
     "start": "react-scripts start",
-    "compile": "webpack",
-    "watch": "webpack --watch",
+    "compile": "webpack --mode development",
+    "watch": "webpack --mode development --watch",
     "package": "webpack --mode production --devtool hidden-source-map",
-    "compile-tests": "tsc -p . --outDir out",
-    "watch-tests": "tsc -p . -w --outDir out",
-    "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
-    "lint": "eslint . --ext .ts,.tsx",
-    "test": "node ./out/test/runTest.js",
+    "lint": "eslint src && prettier --check src",
+    "lint:fix": "eslint --fix src & prettier --write src",
     "build": "node ./scripts/build-non-split.js && tsc -p tsconfig.extension.json",
-    "watch-build": "nodemon --watch src --ext js,tsx,ts --exec \"yarn run build\"",
+    "watch-build": "nodemon --watch src --ext js,tsx,ts --exec \"npm run build\"",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@mantine/code-highlight": "^7.16.2",
+    "@mantine/core": "^7.16.2",
+    "@mantine/hooks": "^7.16.2",
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/glob": "^8.1.0",
     "@types/mocha": "^9.1.1",
     "@types/node": "16.x",
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",
-    "@types/vscode": "^1.63.0",
+    "@types/vscode": "^1.86.0",
+    "@types/webpack-env": "^1.18.5",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
-    "@vscode/test-electron": "^2.3.4",
     "eslint": "^8.20.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
     "glob": "^10.3.3",
+    "js-yaml": "^4.1.0",
+    "json-2-csv": "^5.5.8",
+    "jsonc-parser": "^3.3.1",
+    "jxon": "^2.0.0-beta.5",
     "mocha": "^10.0.0",
     "nodemon": "^2.0.20",
+    "prettier": "^3.3.3",
+    "react-hot-toast": "^2.5.1",
+    "react-icons": "^5.4.0",
+    "react-linkify-it": "^1.0.8",
     "react-scripts": "^5.0.1",
+    "react-zoomable-ui": "^0.11.0",
     "rewire": "^7.0.0",
-    "ts-loader": "^9.3.1",
-    "typescript": "^4.7.4",
-    "webpack": "^5.74.0",
-    "webpack-cli": "^4.10.0"
+    "toml": "^3.0.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.6.3",
+    "use-long-press": "^3.2.0",
+    "vsce": "^2.15.0",
+    "webpack": "^5.95.0",
+    "webpack-cli": "^5.1.4",
+    "zustand": "^5.0.3"
   },
   "dependencies": {
-    "jsoncrack-react": "^0.0.1-beta.3",
+    "eslint-plugin-unused-imports": "^4.1.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "reaflow": "5.2.11",
     "styled-components": "^6.0.7",
     "terser": "^5.19.2"
   },
@@ -142,5 +154,9 @@
   },
   "bugs": {
     "url": "https://github.com/AykutSarac/jsoncrack-vscode/issues"
+  },
+  "engines": {
+    "node": ">=18.x",
+    "vscode": "^1.86.0"
   }
 }

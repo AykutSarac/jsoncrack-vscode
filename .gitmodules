@@ -1,0 +1,3 @@
+[submodule "jsoncrack"]
+	path = jsoncrack
+	url = https://github.com/AykutSarac/jsoncrack.com
