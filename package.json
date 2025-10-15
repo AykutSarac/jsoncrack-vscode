@@ -78,6 +78,7 @@
   "scripts": {
     "fetch-submodule": "git submodule update --remote --recursive && npm run copy-graphview",
     "copy-graphview": "node ./scripts/copy-graphview.js",
+    "vscode:package": "vsce package",
     "vscode:prepublish": "npm run build",
     "start": "react-scripts start",
     "compile": "webpack --mode development --config webpack.config.cjs",

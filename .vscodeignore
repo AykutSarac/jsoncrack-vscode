@@ -3,11 +3,14 @@
 node_modules/**
 jsoncrack/**
 src/**
+scripts/**
+ext-src/**
 .gitignore
 .pnpm-lock.yaml
-webpack.config.js
+webpack.config.cjs
 vsc-extension-quickstart.md
 **/tsconfig.json
 **/.eslintrc.json
 **/*.map
 **/*.ts
+.env
