@@ -1,1 +1,1 @@
-All contents of this folder are licensed under https://github.com/AykutSarac/jsoncrack.com.
+All contents of this folder are licensed under https://github.com/AykutSarac/jsoncrack.com/blob/main/LICENSE.md.

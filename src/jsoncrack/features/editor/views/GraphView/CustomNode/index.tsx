@@ -14,13 +14,7 @@ export interface CustomNodeProps {
   hasCollapse?: boolean;
 }
 
-const rootProps = {
-  rx: 50,
-  ry: 50,
-};
-
-const CustomNodeWrapper = (nodeProps: NodeProps<NodeData["data"]>) => {
-  const data = nodeProps.properties.data;
+const CustomNodeWrapper = (nodeProps: NodeProps<NodeData>) => {
   const setSelectedNode = useGraph(state => state.setSelectedNode);
   const colorScheme = useComputedColorScheme();
 
@@ -34,7 +28,6 @@ const CustomNodeWrapper = (nodeProps: NodeProps<NodeData["data"]>) => {
   return (
     <Node
       {...nodeProps}
-      {...(data?.isEmpty && rootProps)}
       onClick={handleNodeClick as any}
       animated={false}
       label={null as any}
@@ -47,16 +40,14 @@ const CustomNodeWrapper = (nodeProps: NodeProps<NodeData["data"]>) => {
       style={{
         fill: colorScheme === "dark" ? "#292929" : "#ffffff",
         stroke: colorScheme === "dark" ? "#424242" : "#BCBEC0",
-        strokeWidth: 1.5,
+        strokeWidth: 1,
       }}
     >
       {({ node, x, y }) => {
-        if (Array.isArray(nodeProps.properties.text)) {
-          if (data?.isEmpty) return null;
-          return <ObjectNode node={node as NodeData} x={x} y={y} />;
-        }
+        const hasKey = nodeProps.properties.text[0].key;
+        if (!hasKey) return <TextNode node={nodeProps.properties as NodeData} x={x} y={y} />;
 
-        return <TextNode node={node as NodeData} hasCollapse={!!data?.childrenCount} x={x} y={y} />;
+        return <ObjectNode node={node as NodeData} x={x} y={y} />;
       }}
     </Node>
   );

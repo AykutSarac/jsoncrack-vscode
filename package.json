@@ -1,8 +1,9 @@
 {
   "name": "jsoncrack-vscode",
-  "version": "3.0.0",
+  "version": "5.0.0",
   "displayName": "JSON Crack",
-  "description": "Seamlessly visualize your JSON data instantly into graphs.",
+  "type": "module",
+  "description": "Visualize your JSON data into diagrams.",
   "publisher": "AykutSarac",
   "author": {
     "email": "aykutsarac0@gmail.com",
@@ -28,7 +29,7 @@
   "activationEvents": [
     "workspaceContains:**/*.{json}"
   ],
-  "main": "./build/ext-src/extension.js",
+  "main": "./build/extension.cjs",
   "contributes": {
     "commands": [
       {
@@ -75,23 +76,24 @@
     }
   },
   "scripts": {
+    "fetch-submodule": "git submodule update --remote --recursive && npm run copy-graphview",
     "copy-graphview": "node ./scripts/copy-graphview.js",
     "vscode:prepublish": "npm run build",
     "start": "react-scripts start",
-    "compile": "webpack --mode development",
-    "watch": "webpack --mode development --watch",
-    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile": "webpack --mode development --config webpack.config.cjs",
+    "watch": "webpack --mode development --watch --config webpack.config.cjs",
+    "package": "webpack --mode production --devtool hidden-source-map --config webpack.config.cjs",
     "lint": "eslint src && prettier --check src",
     "lint:fix": "eslint --fix src & prettier --write src",
-    "build": "node ./scripts/build-non-split.js && tsc -p tsconfig.extension.json",
+    "build": "node ./scripts/build-non-split.cjs && webpack --mode production --config webpack.config.cjs",
     "watch-build": "nodemon --watch src --ext js,tsx,ts --exec \"npm run build\"",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@mantine/code-highlight": "^7.16.2",
-    "@mantine/core": "^7.16.2",
-    "@mantine/hooks": "^7.16.2",
+    "@mantine/code-highlight": "^7.17.7",
+    "@mantine/core": "^7.17.7",
+    "@mantine/hooks": "^7.17.7",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/glob": "^8.1.0",
     "@types/mocha": "^9.1.1",
@@ -132,7 +134,7 @@
     "eslint-plugin-unused-imports": "^4.1.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "reaflow": "5.2.11",
+    "reaflow": "5.4.1",
     "styled-components": "^6.0.7",
     "terser": "^5.19.2"
   },

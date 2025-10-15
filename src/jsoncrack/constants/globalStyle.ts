@@ -2,11 +2,9 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   html, body {
+    background: #ffffff;
     overscroll-behavior: none;
     -webkit-font-smoothing: subpixel-antialiased !important;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
   }
 
   *,
@@ -18,10 +16,6 @@ const GlobalStyle = createGlobalStyle`
       scroll-behavior: smooth !important;
       -webkit-tap-highlight-color: transparent;
       -webkit-font-smoothing: never;
-  }
-
-  code {
-    background-color: unset;
   }
 
   .hide {
@@ -45,6 +39,11 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     cursor: pointer;
+  }
+
+  code {
+    background: transparent;
+    background-color: transparent;
   }
 `;
 
