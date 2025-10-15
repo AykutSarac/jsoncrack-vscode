@@ -1,28 +1,23 @@
 import React, { useEffect } from "react";
-import { LoadingOverlay, useComputedColorScheme } from "@mantine/core";
+import { Box, LoadingOverlay, useComputedColorScheme } from "@mantine/core";
+import { useDebouncedValue } from "@mantine/hooks";
 import styled from "styled-components";
 import debounce from "lodash.debounce";
 import { Space } from "react-zoomable-ui";
 import { Canvas } from "reaflow";
 import type { ElkRoot } from "reaflow/dist/layout/useLayout";
 import { useLongPress } from "use-long-press";
-import useToggleHide from "../../../../hooks/useToggleHide";
 import useConfig from "../../../../store/useConfig";
 import { CustomEdge } from "./CustomEdge";
 import { CustomNode } from "./CustomNode";
+import { NotSupported } from "./NotSupported";
 import useGraph from "./stores/useGraph";
 import useFile from "../../../../store/useFile";
 import { FileFormat } from "../../../../enums/file.enum";
-import { NotSupported } from "./NotSupported";
 
-const StyledEditorWrapper = styled.div<{
-  $widget: boolean;
-  $showRulers: boolean;
-}>`
-  position: absolute;
+const StyledEditorWrapper = styled.div<{ $widget: boolean; $showRulers: boolean }>`
   width: 100%;
-  height: ${({ $widget }) =>
-    $widget ? "calc(100vh - 40px)" : "calc(100vh - 0px)"};
+  height: 100vh;
 
   --bg-color: ${({ theme }) => theme.GRID_BG_COLOR};
   --line-color-1: ${({ theme }) => theme.GRID_COLOR_PRIMARY};
@@ -61,12 +56,12 @@ const StyledEditorWrapper = styled.div<{
     pointer-events: none;
   }
 
-  rect {
-    fill: ${({ theme }) => theme.BACKGROUND_NODE};
+  text {
+    fill: ${({ theme }) => theme.INTERACTIVE_NORMAL} !important;
   }
 
-  @media only screen and (max-width: 768px) {
-    height: ${({ $widget }) => ($widget ? "calc(100vh - 40px)" : "100vh")};
+  rect {
+    fill: ${({ theme }) => theme.BACKGROUND_NODE};
   }
 
   @media only screen and (max-width: 320px) {
@@ -85,13 +80,12 @@ interface GraphProps {
 }
 
 const GraphCanvas = ({ isWidget }: GraphProps) => {
-  const { validateHiddenNodes } = useToggleHide();
-  const setLoading = useGraph((state) => state.setLoading);
-  const centerView = useGraph((state) => state.centerView);
-  const direction = useGraph((state) => state.direction);
-  const nodes = useGraph((state) => state.nodes);
+  const setLoading = useGraph(state => state.setLoading);
+  const centerView = useGraph(state => state.centerView);
+  const direction = useGraph(state => state.direction);
+  const nodes = useGraph(state => state.nodes);
+  const edges = useGraph(state => state.edges);
   const colorScheme = useComputedColorScheme();
-  const edges = useGraph((state) => state.edges);
   const [paneWidth, setPaneWidth] = React.useState(2000);
   const [paneHeight, setPaneHeight] = React.useState(2000);
 
@@ -99,15 +93,12 @@ const GraphCanvas = ({ isWidget }: GraphProps) => {
     (layout: ElkRoot) => {
       if (layout.width && layout.height) {
         const areaSize = layout.width * layout.height;
-        const changeRatio = Math.abs(
-          (areaSize * 100) / (paneWidth * paneHeight) - 100
-        );
+        const changeRatio = Math.abs((areaSize * 100) / (paneWidth * paneHeight) - 100);
 
         setPaneWidth(layout.width + 50);
         setPaneHeight((layout.height as number) + 50);
 
         setTimeout(() => {
-          validateHiddenNodes();
           window.requestAnimationFrame(() => {
             if (changeRatio > 70 || isWidget) centerView();
             setLoading(false);
@@ -115,22 +106,15 @@ const GraphCanvas = ({ isWidget }: GraphProps) => {
         });
       }
     },
-    [
-      isWidget,
-      paneHeight,
-      paneWidth,
-      centerView,
-      setLoading,
-      validateHiddenNodes,
-    ]
+    [isWidget, paneHeight, paneWidth, centerView, setLoading]
   );
 
   return (
     <Canvas
       className="jsoncrack-canvas"
       onLayoutChange={onLayoutChange}
-      node={(p) => <CustomNode {...p} />}
-      edge={(p) => <CustomEdge {...p} />}
+      node={p => <CustomNode {...p} />}
+      edge={p => <CustomEdge {...p} />}
       nodes={nodes}
       edges={edges}
       arrow={null}
@@ -152,37 +136,31 @@ const GraphCanvas = ({ isWidget }: GraphProps) => {
   );
 };
 
-const SUPPORTED_LIMIT = +(process.env.NEXT_PUBLIC_NODE_LIMIT as string) || 1000;
-
 export const GraphView = ({ isWidget = false, json }: GraphProps) => {
-  const setViewPort = useGraph((state) => state.setViewPort);
-  const viewPort = useGraph((state) => state.viewPort);
-  const aboveSupportedLimit = useGraph(state => state.nodes.length > SUPPORTED_LIMIT);
-  const loading = useGraph((state) => state.loading);
-  const gesturesEnabled = useConfig((state) => state.gesturesEnabled);
-  const rulersEnabled = useConfig((state) => state.rulersEnabled);
+  const setViewPort = useGraph(state => state.setViewPort);
+  const viewPort = useGraph(state => state.viewPort);
+  const aboveSupportedLimit = useGraph(state => state.aboveSupportedLimit);
+  const loading = useGraph(state => state.loading);
+  const gesturesEnabled = useConfig(state => state.gesturesEnabled);
+  const rulersEnabled = useConfig(state => state.rulersEnabled);
+  const [debouncedLoading] = useDebouncedValue(loading, 300);
   const setContents = useFile((state) => state.setContents);
 
   const callback = React.useCallback(() => {
-    const canvas = document.querySelector(
-      ".jsoncrack-canvas"
-    ) as HTMLDivElement | null;
+    const canvas = document.querySelector(".jsoncrack-canvas") as HTMLDivElement | null;
     canvas?.classList.add("dragging");
   }, []);
 
   const bindLongPress = useLongPress(callback, {
     threshold: 150,
     onFinish: () => {
-      const canvas = document.querySelector(
-        ".jsoncrack-canvas"
-      ) as HTMLDivElement | null;
+      const canvas = document.querySelector(".jsoncrack-canvas") as HTMLDivElement | null;
       canvas?.classList.remove("dragging");
     },
   });
 
   const blurOnClick = React.useCallback(() => {
-    if ("activeElement" in document)
-      (document.activeElement as HTMLElement)?.blur();
+    if ("activeElement" in document) (document.activeElement as HTMLElement)?.blur();
   }, []);
 
   const debouncedOnZoomChangeHandler = debounce(() => {
@@ -195,16 +173,14 @@ export const GraphView = ({ isWidget = false, json }: GraphProps) => {
     }
   }, [json, setContents]);
 
-  if (aboveSupportedLimit) {
-    return <NotSupported />;
-  }
 
   return (
-    <>
-      <LoadingOverlay visible={loading} />
+    <Box pos="relative" h="100%" w="100%">
+      {aboveSupportedLimit && <NotSupported />}
+      <LoadingOverlay visible={debouncedLoading} />
       <StyledEditorWrapper
         $widget={isWidget}
-        onContextMenu={(e) => e.preventDefault()}
+        onContextMenu={e => e.preventDefault()}
         onClick={blurOnClick}
         key={String(gesturesEnabled)}
         $showRulers={rulersEnabled}
@@ -213,7 +189,7 @@ export const GraphView = ({ isWidget = false, json }: GraphProps) => {
         <Space
           onUpdated={() => debouncedOnZoomChangeHandler()}
           onCreate={setViewPort}
-          onContextMenu={(e) => e.preventDefault()}
+          onContextMenu={e => e.preventDefault()}
           treatTwoFingerTrackPadGesturesLikeTouch={gesturesEnabled}
           pollForElementResizing
           className="jsoncrack-space"
@@ -221,6 +197,6 @@ export const GraphView = ({ isWidget = false, json }: GraphProps) => {
           <GraphCanvas isWidget={isWidget} />
         </Space>
       </StyledEditorWrapper>
-    </>
+    </Box>
   );
 };

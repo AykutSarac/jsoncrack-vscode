@@ -2,12 +2,12 @@ import * as fs from "fs";
 import * as path from "path";
 import * as vscode from "vscode";
 
-export function createWebviewPanel(context: vscode.ExtensionContext) {
+export function createWebviewPanel(context: vscode.ExtensionContext, title?: string) {
   const extPath = context.extensionPath;
 
   const panel = vscode.window.createWebviewPanel(
     "liveHTMLPreviewer",
-    "JSON Crack",
+    title || "JSON Crack",
     vscode.ViewColumn.Beside,
     {
       enableScripts: true,
@@ -43,7 +43,7 @@ export function createWebviewPanel(context: vscode.ExtensionContext) {
       <head>
         <meta charset="utf-8">
         <base href="${panel.webview.asWebviewUri(vscode.Uri.file(path.join(extPath, "build")))}/">
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' ${panel.webview.cspSource} blob:; connect-src ${panel.webview.cspSource} blob:; script-src 'unsafe-eval' 'unsafe-inline' ${panel.webview.cspSource}; style-src ${panel.webview.cspSource} 'unsafe-inline';">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' ${panel.webview.cspSource} blob: data:; connect-src ${panel.webview.cspSource} blob: data:; script-src 'unsafe-eval' 'unsafe-inline' ${panel.webview.cspSource} blob: data:; worker-src 'self' ${panel.webview.cspSource} blob: data:; style-src ${panel.webview.cspSource} 'unsafe-inline';">
         <link href="${stylesMainUri}" rel="stylesheet">
       </head>
       <body>

@@ -1,5 +1,9 @@
-const fs = require('fs');
-const path = require('path');
+import { readdirSync, mkdirSync, copyFileSync, existsSync } from 'fs';
+import { join, relative, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const PATHS_TO_COPY = [
     'features/editor/views/GraphView',
@@ -11,8 +15,8 @@ const PATHS_TO_COPY = [
     'lib/utils'
 ];
 
-const SOURCE_ROOT = path.join(__dirname, '../jsoncrack/src');
-const DEST_ROOT = path.join(__dirname, '../src/jsoncrack');
+const SOURCE_ROOT = join(__dirname, '../jsoncrack/src');
+const DEST_ROOT = join(__dirname, '../src/jsoncrack');
 
 // Define paths to exclude (relative to source root)
 const EXCLUDED_FILES = [
@@ -25,14 +29,14 @@ const EXCLUDED_FILES = [
 
 // Function to copy directory recursively
 function copyDir(src, dest) {
-    const entries = fs.readdirSync(src, { withFileTypes: true });
+    const entries = readdirSync(src, { withFileTypes: true });
 
     entries.forEach(entry => {
-        const srcPath = path.join(src, entry.name);
-        const destPath = path.join(dest, entry.name);
+        const srcPath = join(src, entry.name);
+        const destPath = join(dest, entry.name);
 
         // Get relative path from source root for comparison
-        const relativePath = path.relative(SOURCE_ROOT, srcPath);
+        const relativePath = relative(SOURCE_ROOT, srcPath);
 
         // Skip excluded files by checking full relative path
         if (EXCLUDED_FILES.includes(relativePath)) {
@@ -41,28 +45,28 @@ function copyDir(src, dest) {
         }
 
         if (entry.isDirectory()) {
-            fs.mkdirSync(destPath, { recursive: true });
+            mkdirSync(destPath, { recursive: true });
             copyDir(srcPath, destPath);
         } else {
-            fs.copyFileSync(srcPath, destPath);
+            copyFileSync(srcPath, destPath);
         }
     });
 }
 
 // Copy each path
 PATHS_TO_COPY.forEach(relativePath => {
-    const fullSrcPath = path.join(SOURCE_ROOT, relativePath);
-    const fullDestPath = path.join(DEST_ROOT, relativePath);
+    const fullSrcPath = join(SOURCE_ROOT, relativePath);
+    const fullDestPath = join(DEST_ROOT, relativePath);
 
     // Check if source directory exists
-    if (!fs.existsSync(fullSrcPath)) {
+    if (!existsSync(fullSrcPath)) {
         console.error(`Error: Source directory ${fullSrcPath} does not exist!`);
         process.exit(1);
     }
 
     // Create destination directory with full path structure
-    if (!fs.existsSync(fullDestPath)) {
-        fs.mkdirSync(fullDestPath, { recursive: true });
+    if (!existsSync(fullDestPath)) {
+        mkdirSync(fullDestPath, { recursive: true });
     }
 
     console.log(`Copying ${relativePath} folder...`);

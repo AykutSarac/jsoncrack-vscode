@@ -1,3 +1,4 @@
+import * as path from "path";
 import * as vscode from "vscode";
 import { createWebviewPanel } from "./webview";
 
@@ -25,9 +26,12 @@ async function createWebviewForSelectedText(context: vscode.ExtensionContext) {
   }
 
   const selectedText = editor?.document.getText(editor.selection);
+  const documentName = editor?.document.fileName
+    ? path.basename(editor.document.fileName)
+    : undefined;
 
   // Create the webview panel and send the selected JSON content
-  const panel = createWebviewPanel(context);
+  const panel = createWebviewPanel(context, documentName);
   panel.webview.postMessage({
     json: selectedText,
   });
@@ -57,8 +61,12 @@ async function createWebviewForSelectedText(context: vscode.ExtensionContext) {
 }
 
 async function createWebviewForActiveEditor(context: vscode.ExtensionContext) {
-  const panel = createWebviewPanel(context);
   const editor = vscode.window.activeTextEditor;
+  const documentName = editor?.document.fileName
+    ? path.basename(editor.document.fileName)
+    : undefined;
+
+  const panel = createWebviewPanel(context, documentName);
 
   const onReceiveMessage = panel.webview.onDidReceiveMessage(e => {
     if (e === "ready") {

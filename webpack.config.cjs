@@ -10,21 +10,25 @@ const extensionConfig = {
   entry: "./ext-src/extension.ts",
   output: {
     path: path.resolve(__dirname, "build"),
-    filename: "extension.js",
+    filename: "extension.cjs",
     libraryTarget: "commonjs2",
-	},
+  },
   externals: {
     vscode: "commonjs vscode",
   },
   module: {
-		rules: [{
-			test: /\.ts$/,
-			exclude: [/node_modules/],
-			use: [{
-				loader: 'ts-loader'
-			}]
-		}]
-	},
+    rules: [
+      {
+        test: /\.ts$/,
+        exclude: [/node_modules/],
+        use: [
+          {
+            loader: "ts-loader",
+          },
+        ],
+      },
+    ],
+  },
   resolve: {
     extensions: [".ts", ".js"],
   },
@@ -38,8 +42,8 @@ const extensionConfig = {
   ],
   devtool: "nosources-source-map",
   performance: {
-		hints: false
-	},
+    hints: false,
+  },
   infrastructureLogging: {
     level: "log",
   },

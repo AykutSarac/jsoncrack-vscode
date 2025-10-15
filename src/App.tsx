@@ -6,8 +6,9 @@ import GlobalStyle from "./jsoncrack/constants/globalStyle";
 import { darkTheme, lightTheme } from "./jsoncrack/constants/theme";
 import { GraphView } from "./jsoncrack/features/editor/views/GraphView";
 import useGraph from "./jsoncrack/features/editor/views/GraphView/stores/useGraph";
+import useConfig from "./jsoncrack/store/useConfig";
 
-function getTheme() {
+function getTheme(): "light" | "dark" {
   const theme = document.body.getAttribute("data-vscode-theme-kind");
   if (theme?.includes("light")) return "light";
   return "dark";
@@ -16,9 +17,9 @@ function getTheme() {
 const App: React.FC = () => {
   const [json, setJson] = useState(JSON.stringify(""));
   const selectedNode = useGraph(state => state.selectedNode);
-  const setSelectedNode = useGraph(state => state.setSelectedNode);
+  const toggleDarkMode = useConfig(state => state.toggleDarkMode);
   const [nodeModalOpened, setNodeModalOpened] = useState(false);
-  const theme = getTheme();
+  const [theme, setTheme] = useState(getTheme());
 
   useEffect(() => {
     const vscode = window?.acquireVsCodeApi?.();
@@ -28,6 +29,23 @@ const App: React.FC = () => {
       const jsonData = event.data.json;
       setJson(jsonData);
     });
+
+    // Listen for theme changes
+    const observer = new MutationObserver(() => {
+      const newTheme = getTheme();
+      setTheme(newTheme);
+      toggleDarkMode(newTheme === "dark");
+      useGraph.getState().setGraph();
+    });
+
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["data-vscode-theme-kind"],
+    });
+
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -40,7 +58,7 @@ const App: React.FC = () => {
         <GraphView json={json} isWidget={false} />
         <GlobalStyle />
         {selectedNode && (
-          <NodeModal opened={nodeModalOpened} onClose={() => setSelectedNode(null)} />
+          <NodeModal opened={nodeModalOpened} onClose={() => setNodeModalOpened(false)} />
         )}
         <Anchor
           pos="fixed"
@@ -51,7 +69,7 @@ const App: React.FC = () => {
         >
           <Box px="12" py="4" bg="dark">
             <Text fz="sm" c="white">
-              Powered by JSON Crack
+              Open Web Editor
             </Text>
           </Box>
         </Anchor>

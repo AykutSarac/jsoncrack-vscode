@@ -1,10 +1,8 @@
-/* eslint-disable no-useless-catch */
 import { FileFormat } from "../../enums/file.enum";
 
 const keyExists = (obj: object, key: string) => {
   if (!obj || (typeof obj !== "object" && !Array.isArray(obj))) {
     return false;
-  // eslint-disable-next-line no-prototype-builtins
   } else if (obj.hasOwnProperty(key)) {
     return obj[key];
   } else if (Array.isArray(obj)) {
